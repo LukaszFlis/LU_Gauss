@@ -5,23 +5,43 @@
  */
 package lu_gauss;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 import java.util.ResourceBundle;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import org.jdesktop.layout.GroupLayout;
+import org.jdesktop.layout.LayoutStyle;
 
 /**
  *
  * @author Luk
  */
 public class Main extends javax.swing.JFrame {
+    
+    DefaultTableModel model;
 
     /**
-     * Creates new form Main
+     *
      */
     public Main() {
         initComponents();
+        model = (DefaultTableModel) tableMacierzA.getModel();
     }
 
     /**
@@ -35,43 +55,268 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1 = new JTabbedPane();
         jPanel1 = new JPanel();
+        panelParametry = new JPanel();
+        jLabel1 = new JLabel();
+        spinnerRozmiarMacierzy = new JSpinner();
+        jLabel2 = new JLabel();
+        buttonPokaz = new JButton();
+        panelMacierz = new JPanel();
+        panelTabela = new JPanel();
+        jScrollPane1 = new JScrollPane();
+        tableMacierzA = new JTable();
+        jButton1 = new JButton();
         jPanel2 = new JPanel();
+        jScrollPane2 = new JScrollPane();
+        jTable1 = new JTable();
+        jLabel3 = new JLabel();
+        jPanel5 = new JPanel();
+        jScrollPane3 = new JScrollPane();
+        jTable2 = new JTable();
+        panelWyjsciowe = new JPanel();
         jPanel3 = new JPanel();
         jPanel4 = new JPanel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("lu_gauss/Bundle"); // NOI18N
         setTitle(bundle.getString("Main.title")); // NOI18N
+        setLocationByPlatform(true);
+        setName("MainFrame"); // NOI18N
 
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 795, Short.MAX_VALUE)
+        panelParametry.setBackground(new Color(204, 204, 255));
+        panelParametry.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2), bundle.getString("Main.panelParametry.border.title"), TitledBorder.LEFT, TitledBorder.TOP, new Font("Times New Roman", 1, 14), new Color(51, 0, 255))); // NOI18N
+
+        jLabel1.setFont(new Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel1.setText(bundle.getString("Main.jLabel1.text")); // NOI18N
+
+        spinnerRozmiarMacierzy.setModel(new SpinnerNumberModel(2, 2, 50, 1));
+
+        jLabel2.setFont(new Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel2.setText(bundle.getString("Main.jLabel2.text")); // NOI18N
+
+        buttonPokaz.setText(bundle.getString("Main.buttonPokaz.text")); // NOI18N
+        buttonPokaz.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                buttonPokazActionPerformed(evt);
+            }
+        });
+
+        GroupLayout panelParametryLayout = new GroupLayout(panelParametry);
+        panelParametry.setLayout(panelParametryLayout);
+        panelParametryLayout.setHorizontalGroup(panelParametryLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(GroupLayout.TRAILING, panelParametryLayout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(panelParametryLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(panelParametryLayout.createSequentialGroup()
+                        .add(jLabel1)
+                        .add(36, 36, 36)
+                        .add(spinnerRozmiarMacierzy, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+                    .add(panelParametryLayout.createSequentialGroup()
+                        .add(147, 147, 147)
+                        .add(jLabel2)))
+                .add(41, 41, 41)
+                .add(buttonPokaz, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+                .add(293, 293, 293))
         );
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 572, Short.MAX_VALUE)
+        panelParametryLayout.setVerticalGroup(panelParametryLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(panelParametryLayout.createSequentialGroup()
+                .add(jLabel2)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(panelParametryLayout.createParallelGroup(GroupLayout.BASELINE)
+                    .add(spinnerRozmiarMacierzy, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel1, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+                    .add(buttonPokaz))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(bundle.getString("Main.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+        panelMacierz.setBackground(new Color(204, 204, 255));
+        panelMacierz.setBorder(BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), bundle.getString("Main.panelMacierz.border.title"), TitledBorder.LEFT, TitledBorder.TOP, new Font("Times New Roman", 1, 14), new Color(255, 0, 102))); // NOI18N
+
+        panelTabela.setBackground(new Color(255, 255, 255));
+        panelTabela.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+
+        jScrollPane1.setBackground(new Color(255, 255, 255));
+
+        tableMacierzA.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
+        tableMacierzA.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "(i,j)"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableMacierzA.setName("macierz A"); // NOI18N
+        tableMacierzA.setRowSelectionAllowed(false);
+        tableMacierzA.getTableHeader().setResizingAllowed(false);
+        tableMacierzA.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tableMacierzA);
+        if (tableMacierzA.getColumnModel().getColumnCount() > 0) {
+            tableMacierzA.getColumnModel().getColumn(0).setResizable(false);
+            tableMacierzA.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.macierz A.columnModel.title0")); // NOI18N
+        }
+
+        GroupLayout panelTabelaLayout = new GroupLayout(panelTabela);
+        panelTabela.setLayout(panelTabelaLayout);
+        panelTabelaLayout.setHorizontalGroup(panelTabelaLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane1, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        panelTabelaLayout.setVerticalGroup(panelTabelaLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane1, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
+        );
+
+        jButton1.setText(bundle.getString("Main.jButton1.text")); // NOI18N
+
+        jPanel2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+
+        jTable1.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "1"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.getTableHeader().setResizingAllowed(false);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.jTable1.columnModel.title0")); // NOI18N
+        }
 
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 795, Short.MAX_VALUE)
+            .add(jScrollPane2, GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 572, Short.MAX_VALUE)
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(jScrollPane2, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(bundle.getString("Main.jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
+        jLabel3.setFont(new Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setText(bundle.getString("Main.jLabel3.text")); // NOI18N
+
+        jPanel5.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+
+        jTable2.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "1"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.jTable2.columnModel.title0")); // NOI18N
+        }
+
+        GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane3, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane3, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
+        );
+
+        GroupLayout panelMacierzLayout = new GroupLayout(panelMacierz);
+        panelMacierz.setLayout(panelMacierzLayout);
+        panelMacierzLayout.setHorizontalGroup(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(GroupLayout.TRAILING, panelMacierzLayout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING)
+                    .add(jLabel3)
+                    .add(panelTabela, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING, false)
+                    .add(jButton1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(panelMacierzLayout.createSequentialGroup()
+                        .add(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.UNRELATED)
+                        .add(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .add(144, 144, 144))
+        );
+        panelMacierzLayout.setVerticalGroup(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(panelMacierzLayout.createSequentialGroup()
+                .add(jLabel3, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING, false)
+                    .add(panelTabela, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(jButton1)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1Layout.createParallelGroup(GroupLayout.LEADING, false)
+                    .add(panelMacierz, GroupLayout.PREFERRED_SIZE, 545, GroupLayout.PREFERRED_SIZE)
+                    .add(panelParametry, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(panelMacierz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab(bundle.getString("Main.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+
+        GroupLayout panelWyjscioweLayout = new GroupLayout(panelWyjsciowe);
+        panelWyjsciowe.setLayout(panelWyjscioweLayout);
+        panelWyjscioweLayout.setHorizontalGroup(panelWyjscioweLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(0, 565, Short.MAX_VALUE)
+        );
+        panelWyjscioweLayout.setVerticalGroup(panelWyjscioweLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(0, 628, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab(bundle.getString("Main.panelWyjsciowe.TabConstraints.tabTitle"), panelWyjsciowe); // NOI18N
 
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 795, Short.MAX_VALUE)
+            .add(0, 565, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 572, Short.MAX_VALUE)
+            .add(0, 628, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab(bundle.getString("Main.jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
@@ -79,10 +324,10 @@ public class Main extends javax.swing.JFrame {
         GroupLayout jPanel4Layout = new GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 795, Short.MAX_VALUE)
+            .add(0, 565, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 572, Short.MAX_VALUE)
+            .add(0, 628, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab(bundle.getString("Main.jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
@@ -98,6 +343,25 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonPokazActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonPokazActionPerformed
+        Random random = new Random(99);
+        model.setRowCount((int) spinnerRozmiarMacierzy.getValue());
+        model.setColumnCount((int) spinnerRozmiarMacierzy.getValue() + 1);
+        for (int i = 1; i <= (int) spinnerRozmiarMacierzy.getValue(); i++) {
+            tableMacierzA.getColumnModel().getColumn(i).setHeaderValue(i);
+        }
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.setValueAt(i + 1, i, 0);
+        }
+        
+        for (int i = 0; i < model.getRowCount(); i++) {
+            for (int j = 1; j < model.getColumnCount(); j++) {
+                model.setValueAt(random.nextInt(100), i, j);
+            }
+        }
+        tableMacierzA.setModel(model);
+    }//GEN-LAST:event_buttonPokazActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,30 +379,41 @@ public class Main extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Main().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton buttonPokaz;
+    private JButton jButton1;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
     private JPanel jPanel4;
+    private JPanel jPanel5;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JScrollPane jScrollPane3;
     private JTabbedPane jTabbedPane1;
+    private JTable jTable1;
+    private JTable jTable2;
+    private JPanel panelMacierz;
+    private JPanel panelParametry;
+    private JPanel panelTabela;
+    private JPanel panelWyjsciowe;
+    private JSpinner spinnerRozmiarMacierzy;
+    private JTable tableMacierzA;
     // End of variables declaration//GEN-END:variables
 }
