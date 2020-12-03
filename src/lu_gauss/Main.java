@@ -358,9 +358,9 @@ public class Main extends javax.swing.JFrame {
         int n = (int) spinnerN.getValue();
         this.matrixA = new double[n][n];
         
-        for (int i = 0; i < matrixA.length; i++) {
-            for (int j = 0; j < matrixA.length; j++){
-                matrixA[i][j] = random.nextInt(10);
+        for (double[] matrixA1 : matrixA) {
+            for (int j = 0; j < matrixA.length; j++) {
+             matrixA1[j] = random.nextInt(10);
             }
         }
         modelA.setRowCount(n);
@@ -404,35 +404,41 @@ public class Main extends javax.swing.JFrame {
             }
         }
         
-        //rozkład macierzyA na L i U
-        //
-        for(int i = 1; i < n -1; i++) {
+        //rozkład macierzy A = L i U
+        /*for(int i = 1; i < n -1; i++) {
             for(int j = i+1; j < n; j++) {
-               if ( matrixA[i][i] != 0 ) {
+               if ( matrixA[i][i] == 0 ) {
                    matrixL[j][i] =  matrixA[j][i]/matrixA[i][i];
                } else { matrixL[j][i] = 0; }
             }   
             for(int j = i + 1; j < n; j++){
                 for (int k = i + 1; k < n; k++) {
-                    matrixU[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
+                    matrixA[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
                 }
-            }
-        }
-        
-        /*for (double[] matrixA1 : matrixA) {
-            for (int j = 0; j < matrixA.length; j++) {
-                System.out.println(matrixA1[j] + ", ");
             }
         }*/
         
+        for(int i = 0; i < n ; i++) {
+            for(int j = i; j < n; j++) {
+               if ( matrixA[i][i] != 0 ) {
+                   matrixL[j][i] =  matrixA[j][i]/matrixA[i][i];
+               } else { matrixL[j][i] = 0; }
+            }   
+            for(int j = i + 1; j < n; j++){
+                for (int k = i + 1 ; k < n; k++) {
+                    matrixA[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
+                }
+            }            
+        }
+        
         //przypisanie wartości do macierzy U
-        /*for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 if (i <= j) {
                     matrixU[i][j] = matrixA[i][j];
                 } else { matrixU[i][j] = 0;}
             }
-        }*/
+        }
         //utworzenie kolumn i wierszy tabeli L
         modelL.setRowCount(n);
         modelL.setColumnCount(n + 1);
