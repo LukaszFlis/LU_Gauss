@@ -404,7 +404,7 @@ public class Main extends javax.swing.JFrame {
             }
         }
         
-        //rozkład macierzy A = L i U
+        //rozkład macierzy A = L i U(żle działający)
         /*for(int i = 1; i < n -1; i++) {
             for(int j = i+1; j < n; j++) {
                if ( matrixA[i][i] == 0 ) {
