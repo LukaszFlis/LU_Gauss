@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.SecureRandom;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -33,19 +32,14 @@ import org.jdesktop.layout.LayoutStyle;
  * @author Luk
  */
 public class Main extends javax.swing.JFrame {
-    double[][] matrixA;
-    DefaultTableModel modelA;
-    DefaultTableModel modelL;
-    DefaultTableModel modelU;
+    
+    LU_Decomposition handler = new LU_Decomposition();
+    
     /**
      *
      */
     public Main() {
         initComponents();
-        modelA = (DefaultTableModel) tableA.getModel();
-        modelL = (DefaultTableModel) tableL.getModel();
-        modelU = (DefaultTableModel) tableU.getModel();
-        
     }
 
     /**
@@ -354,144 +348,36 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPokazActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonPokazActionPerformed
-        SecureRandom random = new SecureRandom();
-        int n = (int) spinnerN.getValue();
-        this.matrixA = new double[n][n];
-        
-        for (double[] matrixA1 : matrixA) {
-            for (int j = 0; j < matrixA.length; j++) {
-             matrixA1[j] = random.nextInt(10);
-            }
-        }
-        modelA.setRowCount(n);
-        modelA.setColumnCount(n + 1);
-        
-        for (int i = 1; i <= n; i++) {
-            tableA.getColumnModel().getColumn(i).setHeaderValue(i);
-        }
-        
-        for (int i = 0; i < modelA.getRowCount(); i++) {
-            modelA.setValueAt(i + 1, i, 0);
-        }
-        
-        for (int i = 0; i < modelA.getRowCount(); i++) {
-            for (int j = 1; j < modelA.getColumnCount(); j++) {
-                modelA.setValueAt(matrixA[i][j-1], i, j);
-            }
-        }
-        tableA.setModel(modelA);
+        handler.createMatrxA();
+        tableA.setModel(handler.getModelA());
     }//GEN-LAST:event_buttonPokazActionPerformed
 
     private void buttonObliczActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonObliczActionPerformed
         
-        int n = (int) spinnerN.getValue();
-        double[][] matrixL = new double[n][n];
-        double[][] matrixU = new double[n][n];
-        
-        //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
-        for(int i = 0; i < matrixL.length; i++) {
-            for(int j = 0; j < matrixL.length; j++) {
-                if(i == j) {
-                    matrixL[i][j] = 1;
-                } else { matrixL[i][j] = 0; }
-            }
-        }
-        
-        //zerowanie macierzy U
-        for(int i = 0; i < matrixU.length; i++) {
-            for(int j = 0; j < matrixU.length; j++) {
-                matrixL[i][j] = 0;
-            }
-        }
-        
-        //rozkład macierzy A = L i U(żle działający)
-        /*for(int i = 1; i < n -1; i++) {
-            for(int j = i+1; j < n; j++) {
-               if ( matrixA[i][i] == 0 ) {
-                   matrixL[j][i] =  matrixA[j][i]/matrixA[i][i];
-               } else { matrixL[j][i] = 0; }
-            }   
-            for(int j = i + 1; j < n; j++){
-                for (int k = i + 1; k < n; k++) {
-                    matrixA[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
-                }
-            }
-        }*/
-        
-        for(int i = 0; i < n ; i++) {
-            for(int j = i; j < n; j++) {
-               if ( matrixA[i][i] != 0 ) {
-                   matrixL[j][i] =  matrixA[j][i]/matrixA[i][i];
-               } else { matrixL[j][i] = 0; }
-            }   
-            for(int j = i + 1; j < n; j++){
-                for (int k = i + 1 ; k < n; k++) {
-                    matrixA[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
-                }
-            }            
-        }
-        
-        //przypisanie wartości do macierzy U
-        for (int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if (i <= j) {
-                    matrixU[i][j] = matrixA[i][j];
-                } else { matrixU[i][j] = 0;}
-            }
-        }
-        //utworzenie kolumn i wierszy tabeli L
-        modelL.setRowCount(n);
-        modelL.setColumnCount(n + 1);
-        
-        //ustawienie tytułu kolumn 1 - n tabeli L
-        for (int i = 1; i <= n; i++) {
-            tableL.getColumnModel().getColumn(i).setHeaderValue(i);
-        }
-        
-        //ustawienie wartości wierszy w kolumnie 0 tabeli L
-        for (int i = 0; i < modelL.getRowCount(); i++) {
-            modelL.setValueAt(i + 1, i, 0);
-        }
-        
-        //ustawienie wartości wierszy w kolumnach 1 - n tabeli L
-        //wartości pobierane są z macierzy L
-        for (int i = 0; i < modelL.getRowCount(); i++) {
-            for (int j = 1; j < modelL.getColumnCount(); j++) {
-                modelL.setValueAt(matrixL[i][j-1], i, j);
-            }
-        }
-        
+        handler.makeDecomposition();
         //przypisanie nowego modelu dla tabeli L
-        tableL.setModel(modelL);
-        
-        //utworzenie kolumn i wierszy tabeli U
-        modelU.setRowCount(n);
-        modelU.setColumnCount(n + 1);
-        
-        //ustawienie tytułu kolumn 1 - n tabeli U
-        for (int i = 1; i <= n; i++) {
-            tableU.getColumnModel().getColumn(i).setHeaderValue(i);
-        }
-        
-        //ustawienie wartości wierszy w kolumnie 0 tabeli U
-        for (int i = 0; i < modelU.getRowCount(); i++) {
-            modelU.setValueAt(i + 1, i, 0);
-        }
-        
-        //ustawienie wartości wierszy w kolumnach 1 - n tabeli U
-        //wartości pobierane są z macierzy U
-        for (int i = 0; i < modelU.getRowCount(); i++) {
-            for (int j = 1; j < modelU.getColumnCount(); j++) {
-                modelU.setValueAt(matrixU[i][j-1], i, j);
-            }
-        }
-        
+        tableL.setModel(handler.getModelL());
         //przypisanie nowego modelu dla tabeli U
-        tableU.setModel(modelU);
-        
+        tableU.setModel(handler.getModelU());  
  
     }//GEN-LAST:event_buttonObliczActionPerformed
 
+    public JTable getTableA() {
+        return tableA;
+    }
+
+    public JTable getTableL() {
+        return tableL;
+    }
+
+    public JTable getTableU() {
+        return tableU;
+    }
+
+    public JSpinner getSpinnerN() {
+        return spinnerN;
+    }
+ 
     /**
      * @param args the command line arguments
      */
