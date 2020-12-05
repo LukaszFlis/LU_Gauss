@@ -6,30 +6,26 @@
 package lu_gauss;
 
 import java.security.SecureRandom;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Luk
  */
-public class LU_Decomposition {
+public class LU_Decomposition extends JFrame{
     private double[][] matrixA;
     private DefaultTableModel modelA;
     private DefaultTableModel modelL;
     private DefaultTableModel modelU;
-    Main handler = new Main();
     
     LU_Decomposition() {
-       modelA = (DefaultTableModel) handler.getTableA().getModel();
-       modelL = (DefaultTableModel) handler.getTableL().getModel();
-       modelU = (DefaultTableModel) handler.getTableU().getModel();
     }
-    public void createMatrxA() {
+    public void createMatrxA(JTable tableA, int n ) {
         
         SecureRandom random = new SecureRandom();
-        
-        int n = (int) handler.getSpinnerN().getValue();
-        
+        modelA = (DefaultTableModel) tableA.getModel(); 
         matrixA = new double[n][n];
         
         //przypisanie do matrixA losowych wartości z zakresu 1-9
@@ -43,7 +39,7 @@ public class LU_Decomposition {
         
         //ustawienie tytułu kolumn od 1 do n w tabeli A
         for (int i = 1; i <= n; i++) {
-            handler.getTableA().getColumnModel().getColumn(i).setHeaderValue(i);
+            tableA.getColumnModel().getColumn(i).setHeaderValue(i);
         }
         
         //ustawienie wartości wierszy w kolumnie 0 tabeli A
@@ -60,8 +56,9 @@ public class LU_Decomposition {
         }
     }
     
-    void makeDecomposition() {
-        int n = (int) handler.getSpinnerN().getValue();
+    void makeDecomposition(JTable tableL, JTable tableU,int n) {
+        modelL = (DefaultTableModel) tableL.getModel();
+        modelU = (DefaultTableModel) tableU.getModel();
         double[][] matrixL = new double[n][n];
         double[][] matrixU = new double[n][n];
         
@@ -121,7 +118,7 @@ public class LU_Decomposition {
         
         //ustawienie tytułu kolumn od 1 do n w tabeli L
         for (int i = 1; i <= n; i++) {
-            handler.getTableL().getColumnModel().getColumn(i).setHeaderValue(i);
+            tableL.getColumnModel().getColumn(i).setHeaderValue(i);
         }
         
         //ustawienie wartości wierszy w kolumnie 0 tabeli L
@@ -142,7 +139,7 @@ public class LU_Decomposition {
         
         //ustawienie tytułu kolumn 1 - n tabeli U
         for (int i = 1; i <= n; i++) {
-            handler.getTableU().getColumnModel().getColumn(i).setHeaderValue(i);
+            tableU.getColumnModel().getColumn(i).setHeaderValue(i);
         }
         
         //ustawienie wartości wierszy w kolumnie 0 tabeli U

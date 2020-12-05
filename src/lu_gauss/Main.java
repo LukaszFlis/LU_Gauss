@@ -348,15 +348,18 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPokazActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonPokazActionPerformed
-        handler.createMatrxA();
+        int n = (int) spinnerN.getValue();
+        handler.createMatrxA(tableA, n);
         tableA.setModel(handler.getModelA());
     }//GEN-LAST:event_buttonPokazActionPerformed
 
     private void buttonObliczActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonObliczActionPerformed
+        int n = (int) spinnerN.getValue();
+        handler.makeDecomposition(tableL, tableU, n);
         
-        handler.makeDecomposition();
         //przypisanie nowego modelu dla tabeli L
         tableL.setModel(handler.getModelL());
+        
         //przypisanie nowego modelu dla tabeli U
         tableU.setModel(handler.getModelU());  
  
