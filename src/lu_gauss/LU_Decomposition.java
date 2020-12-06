@@ -7,6 +7,7 @@ package lu_gauss;
 
 import java.security.SecureRandom;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class LU_Decomposition extends JFrame{
     private double[][] matrixA;
     private DefaultTableModel modelA;
+    private DefaultTableModel modelA1;
     private DefaultTableModel modelL;
     private DefaultTableModel modelU;
     
@@ -56,12 +58,13 @@ public class LU_Decomposition extends JFrame{
         }
     }
     
-    void makeDecomposition(JTable tableL, JTable tableU,int n) {
+    void makeDecomposition(JTable tableL, JTable tableU,JTable tableA1, int n, JLabel czas) {
         modelL = (DefaultTableModel) tableL.getModel();
         modelU = (DefaultTableModel) tableU.getModel();
+        modelA1 = (DefaultTableModel)tableA1.getModel();
         double[][] matrixL = new double[n][n];
         double[][] matrixU = new double[n][n];
-        
+        double[][] matrixA1 = new double[n][n];
         //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
         for(int i = 0; i < matrixL.length; i++) {
             for(int j = 0; j < matrixL.length; j++) {
@@ -90,7 +93,7 @@ public class LU_Decomposition extends JFrame{
                 }
             }
         }*/
-        
+        long start = System.nanoTime();
         //rozkład macierzy A = LU
         for(int i = 0; i < n ; i++) {
             for(int j = i; j < n; j++) {
@@ -104,7 +107,9 @@ public class LU_Decomposition extends JFrame{
                 }
             }            
         }
-        
+        long time = System.nanoTime()- start;
+        System.out.println(time);
+        czas.setText("Czas wykonania algorytmu w nanosekundach: " + String.valueOf(time));
         //przypisanie wartości do macierzy U
         for (int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
@@ -113,6 +118,40 @@ public class LU_Decomposition extends JFrame{
                 } else { matrixU[i][j] = 0;}
             }
         }
+        
+        //werfikacja matrixA=matrixA1
+        //matrixA1 = matrxL * matrixU
+        double sum =0;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                for (int k = 0; k<n; k++){
+                    sum+= matrixL[i][k] * matrixU[k][j];
+                }
+                matrixA1[i][j] = sum;
+                sum = 0;
+            } 
+        }
+        //ustawienie liczby wierszy i  kolumn w tabeli A1
+        setModelA1(n, n+1);
+        
+        //ustawienie tytułu kolumn od 1 do n w tabeli A1
+        for (int i = 1; i <= n; i++) {
+            tableA1.getColumnModel().getColumn(i).setHeaderValue(i);
+        }
+        
+        //ustawienie wartości wierszy w kolumnie 0 tabeli A1
+        for (int i = 0; i < modelA1.getRowCount(); i++) {
+            modelA1.setValueAt(i + 1, i, 0);
+        }
+        
+        //ustawienie wartości wierszy w kolumnach 1 do n tabeli A1
+        //wartości pobierane są z matrixA1
+        for (int i = 0; i < modelA1.getRowCount(); i++) {
+            for (int j = 1; j < modelA1.getColumnCount(); j++) {
+                modelA1.setValueAt(matrixA1[i][j-1], i, j);
+            }
+        }
+        
         //ustawienie liczby wierszy i  kolumn w tabeli L
         setModelL(n, n+1);
         
@@ -220,7 +259,12 @@ public class LU_Decomposition extends JFrame{
         this.modelU.setColumnCount(col);
     }
 
-    
-    
+    public DefaultTableModel getModelA1() {
+        return modelA1;
+    }
+    public void setModelA1(int row, int col) {
+        this.modelA1.setRowCount(row);
+        this.modelA1.setColumnCount(col);
+    }
     
 }
