@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,7 +34,7 @@ import org.jdesktop.layout.LayoutStyle;
  */
 public class Main extends javax.swing.JFrame {
     
-    LU_Decomposition handler = new LU_Decomposition();
+    LU_Decomposition lu = new LU_Decomposition();
     
     /**
      *
@@ -51,6 +52,7 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new ButtonGroup();
         jTabbedPane1 = new JTabbedPane();
         panelWejsciowe = new JPanel();
         panelParametry = new JPanel();
@@ -73,24 +75,38 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new JLabel();
         buttonOblicz = new JButton();
         czas = new JLabel();
-        panelWyjsciowe = new JPanel();
-        jPanel2 = new JPanel();
+        panellWeyfikacja = new JPanel();
+        panelA1 = new JPanel();
+        jScrollPane6 = new JScrollPane();
+        tableWynik = new JTable();
+        jLabel7 = new JLabel();
+        jLabel6 = new JLabel();
+        buttonVerification = new JButton();
+        jLabel9 = new JLabel();
+        labelSumEl = new JLabel();
+        panelA = new JPanel();
         jScrollPane4 = new JScrollPane();
         tableA1 = new JTable();
-        panelObliczenia = new JPanel();
-        panelHelp = new JPanel();
-        jPanel1 = new JPanel();
+        panelA2 = new JPanel();
+        jScrollPane5 = new JScrollPane();
+        tableAPierv = new JTable();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("lu_gauss/Bundle"); // NOI18N
         setTitle(bundle.getString("Main.title")); // NOI18N
         setLocationByPlatform(true);
         setName("MainFrame"); // NOI18N
+        setPreferredSize(new Dimension(1024, 768));
+        setResizable(false);
 
         jTabbedPane1.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        jTabbedPane1.setPreferredSize(new Dimension(1024, 768));
+
+        panelWejsciowe.setPreferredSize(new Dimension(1020, 760));
 
         panelParametry.setBackground(new Color(204, 204, 255));
         panelParametry.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2), bundle.getString("Main.panelParametry.border.title"), TitledBorder.LEFT, TitledBorder.TOP, new Font("Times New Roman", 1, 14), new Color(51, 0, 255))); // NOI18N
+        panelParametry.setPreferredSize(new Dimension(1010, 100));
 
         jLabel1.setFont(new Font("Times New Roman", 1, 16)); // NOI18N
         jLabel1.setText(bundle.getString("Main.jLabel1.text")); // NOI18N
@@ -108,32 +124,34 @@ public class Main extends javax.swing.JFrame {
         GroupLayout panelParametryLayout = new GroupLayout(panelParametry);
         panelParametry.setLayout(panelParametryLayout);
         panelParametryLayout.setHorizontalGroup(panelParametryLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(GroupLayout.TRAILING, panelParametryLayout.createSequentialGroup()
-                .addContainerGap()
+            .add(panelParametryLayout.createSequentialGroup()
+                .add(19, 19, 19)
                 .add(jLabel1)
-                .add(71, 71, 71)
+                .add(49, 49, 49)
                 .add(spinnerN, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-                .add(57, 57, 57)
+                .addPreferredGap(LayoutStyle.RELATED, 643, Short.MAX_VALUE)
                 .add(buttonPokaz, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(907, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelParametryLayout.setVerticalGroup(panelParametryLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelParametryLayout.createSequentialGroup()
+                .addContainerGap()
                 .add(panelParametryLayout.createParallelGroup(GroupLayout.BASELINE)
-                    .add(spinnerN, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                     .add(jLabel1, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+                    .add(spinnerN, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                     .add(buttonPokaz))
-                .add(0, 15, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         panelMacierz.setBackground(new Color(204, 204, 255));
         panelMacierz.setBorder(BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), bundle.getString("Main.panelMacierz.border.title"), TitledBorder.LEFT, TitledBorder.TOP, new Font("Times New Roman", 1, 14), new Color(255, 0, 102))); // NOI18N
-        panelMacierz.setMinimumSize(new Dimension(1280, 600));
+        panelMacierz.setMinimumSize(new Dimension(0, 0));
+        panelMacierz.setPreferredSize(new Dimension(1010, 650));
 
         panelTabelaA.setBackground(new Color(255, 255, 255));
-        panelTabelaA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-        panelTabelaA.setMinimumSize(new Dimension(400, 400));
-        panelTabelaA.setPreferredSize(new Dimension(400, 400));
+        panelTabelaA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+        panelTabelaA.setMinimumSize(new Dimension(326, 326));
+        panelTabelaA.setPreferredSize(new Dimension(326, 326));
 
         jScrollPane1.setBackground(new Color(255, 255, 255));
 
@@ -148,6 +166,7 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         tableA.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableA.setFillsViewportHeight(true);
         tableA.setName("macierz A"); // NOI18N
         tableA.setRowSelectionAllowed(false);
         tableA.getTableHeader().setResizingAllowed(false);
@@ -160,14 +179,17 @@ public class Main extends javax.swing.JFrame {
         GroupLayout panelTabelaALayout = new GroupLayout(panelTabelaA);
         panelTabelaA.setLayout(panelTabelaALayout);
         panelTabelaALayout.setHorizontalGroup(panelTabelaALayout.createParallelGroup(GroupLayout.LEADING)
-            .add(GroupLayout.TRAILING, jScrollPane1, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+            .add(jScrollPane1, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
         panelTabelaALayout.setVerticalGroup(panelTabelaALayout.createParallelGroup(GroupLayout.LEADING)
-            .add(GroupLayout.TRAILING, jScrollPane1)
+            .add(GroupLayout.TRAILING, jScrollPane1, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
 
-        panelTabelaL.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-        panelTabelaL.setMinimumSize(new Dimension(400, 400));
+        panelTabelaL.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+        panelTabelaL.setMinimumSize(new Dimension(0, 0));
+        panelTabelaL.setPreferredSize(new Dimension(326, 326));
+
+        jScrollPane2.setPreferredSize(new Dimension(320, 320));
 
         tableL.setAutoCreateRowSorter(true);
         tableL.setModel(new DefaultTableModel(
@@ -179,6 +201,7 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         tableL.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableL.setFillsViewportHeight(true);
         tableL.getTableHeader().setResizingAllowed(false);
         tableL.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableL);
@@ -189,17 +212,15 @@ public class Main extends javax.swing.JFrame {
         GroupLayout panelTabelaLLayout = new GroupLayout(panelTabelaL);
         panelTabelaL.setLayout(panelTabelaLLayout);
         panelTabelaLLayout.setHorizontalGroup(panelTabelaLLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(GroupLayout.TRAILING, jScrollPane2)
+            .add(jScrollPane2, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
         panelTabelaLLayout.setVerticalGroup(panelTabelaLLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(panelTabelaLLayout.createSequentialGroup()
-                .add(jScrollPane2)
-                .add(0, 0, Short.MAX_VALUE))
+            .add(jScrollPane2, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
 
-        panelTabelaU.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-        panelTabelaU.setMinimumSize(new Dimension(400, 400));
-        panelTabelaU.setPreferredSize(new Dimension(400, 400));
+        panelTabelaU.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+        panelTabelaU.setMinimumSize(new Dimension(0, 0));
+        panelTabelaU.setPreferredSize(new Dimension(326, 326));
 
         tableU.setAutoCreateRowSorter(true);
         tableU.setModel(new DefaultTableModel(
@@ -211,6 +232,7 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         tableU.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableU.setFillsViewportHeight(true);
         jScrollPane3.setViewportView(tableU);
         if (tableU.getColumnModel().getColumnCount() > 0) {
             tableU.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableU.columnModel.title0")); // NOI18N
@@ -219,10 +241,10 @@ public class Main extends javax.swing.JFrame {
         GroupLayout panelTabelaULayout = new GroupLayout(panelTabelaU);
         panelTabelaU.setLayout(panelTabelaULayout);
         panelTabelaULayout.setHorizontalGroup(panelTabelaULayout.createParallelGroup(GroupLayout.LEADING)
-            .add(jScrollPane3, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+            .add(jScrollPane3, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
         panelTabelaULayout.setVerticalGroup(panelTabelaULayout.createParallelGroup(GroupLayout.LEADING)
-            .add(jScrollPane3)
+            .add(jScrollPane3, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(new Font("Times New Roman", 1, 16)); // NOI18N
@@ -251,27 +273,22 @@ public class Main extends javax.swing.JFrame {
         panelMacierz.setLayout(panelMacierzLayout);
         panelMacierzLayout.setHorizontalGroup(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelMacierzLayout.createSequentialGroup()
-                .addContainerGap()
+                .add(3, 3, 3)
                 .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING)
-                    .add(jLabel3)
-                    .add(panelTabelaA, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(6, 6, 6)
+                    .add(panelTabelaA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel3))
+                .add(8, 8, 8)
                 .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING)
-                    .add(panelMacierzLayout.createSequentialGroup()
-                        .add(jLabel2)
-                        .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(buttonOblicz, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
-                    .add(panelTabelaL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panelMacierzLayout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jLabel4)))
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
-                    .add(czas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(GroupLayout.TRAILING, panelTabelaU, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(GroupLayout.TRAILING, panelMacierzLayout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jLabel5)))
+                    .add(jLabel4)
+                    .add(jLabel2)
+                    .add(panelTabelaL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .add(8, 8, 8)
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING)
+                    .add(buttonOblicz)
+                    .add(panelTabelaU, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel5))
+                .add(55, 55, 55)
+                .add(czas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(46, 46, 46))
         );
         panelMacierzLayout.setVerticalGroup(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
@@ -280,38 +297,88 @@ public class Main extends javax.swing.JFrame {
                     .add(jLabel3)
                     .add(jLabel4)
                     .add(jLabel5))
-                .add(9, 9, 9)
-                .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING, false)
-                    .add(panelTabelaL, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panelTabelaU, GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
-                    .add(panelTabelaA, GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
-                .addPreferredGap(LayoutStyle.UNRELATED)
-                .add(panelMacierzLayout.createParallelGroup(GroupLayout.BASELINE)
-                    .add(buttonOblicz)
-                    .add(jLabel2)
-                    .add(czas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(77, 77, 77))
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(panelTabelaA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(panelTabelaL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(panelTabelaU, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(GroupLayout.TRAILING, czas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(panelMacierzLayout.createSequentialGroup()
+                        .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
+                            .add(jLabel2)
+                            .add(buttonOblicz))
+                        .add(0, 238, Short.MAX_VALUE))))
         );
 
         GroupLayout panelWejscioweLayout = new GroupLayout(panelWejsciowe);
         panelWejsciowe.setLayout(panelWejscioweLayout);
         panelWejscioweLayout.setHorizontalGroup(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(panelWejscioweLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING, false)
-                    .add(panelMacierz, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panelParametry, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(panelMacierz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
         panelWejscioweLayout.setVerticalGroup(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelWejscioweLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(panelParametry, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(panelMacierz, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(panelMacierz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab(bundle.getString("Main.panelWejsciowe.TabConstraints.tabTitle"), panelWejsciowe); // NOI18N
+
+        panellWeyfikacja.setPreferredSize(new Dimension(1020, 764));
+
+        panelA1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+        panelA1.setPreferredSize(new Dimension(330, 330));
+
+        tableWynik.setAutoCreateRowSorter(true);
+        tableWynik.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
+        tableWynik.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "(i,j)"
+            }
+        ));
+        tableWynik.setToolTipText(bundle.getString("Main.A'.toolTipText")); // NOI18N
+        tableWynik.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableWynik.setFillsViewportHeight(true);
+        tableWynik.setName("A'"); // NOI18N
+        tableWynik.setShowGrid(true);
+        tableWynik.getTableHeader().setReorderingAllowed(false);
+        jScrollPane6.setViewportView(tableWynik);
+        if (tableWynik.getColumnModel().getColumnCount() > 0) {
+            tableWynik.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.A'.columnModel.title0_1")); // NOI18N
+        }
+
+        GroupLayout panelA1Layout = new GroupLayout(panelA1);
+        panelA1.setLayout(panelA1Layout);
+        panelA1Layout.setHorizontalGroup(panelA1Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane6, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+        );
+        panelA1Layout.setVerticalGroup(panelA1Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane6, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+        );
+
+        jLabel7.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel7.setText(bundle.getString("Main.jLabel7.text")); // NOI18N
+
+        jLabel6.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel6.setText(bundle.getString("Main.jLabel6.text")); // NOI18N
+
+        buttonVerification.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        buttonVerification.setText(bundle.getString("Main.buttonVerification.text")); // NOI18N
+
+        jLabel9.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel9.setText(bundle.getString("Main.jLabel9.text")); // NOI18N
+
+        labelSumEl.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        labelSumEl.setText(bundle.getString("Main.labelSumEl.text")); // NOI18N
+
+        panelA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+        panelA.setPreferredSize(new Dimension(330, 330));
 
         tableA1.setAutoCreateRowSorter(true);
         tableA1.setModel(new DefaultTableModel(
@@ -323,76 +390,104 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         tableA1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableA1.setFillsViewportHeight(true);
+        tableA1.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tableA1);
+        if (tableA1.getColumnModel().getColumnCount() > 0) {
+            tableA1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableA1.columnModel.title0")); // NOI18N
+        }
 
-        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(892, Short.MAX_VALUE))
+        GroupLayout panelALayout = new GroupLayout(panelA);
+        panelA.setLayout(panelALayout);
+        panelALayout.setHorizontalGroup(panelALayout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane4, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(251, Short.MAX_VALUE))
+        panelALayout.setVerticalGroup(panelALayout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane4, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
 
-        GroupLayout panelWyjscioweLayout = new GroupLayout(panelWyjsciowe);
-        panelWyjsciowe.setLayout(panelWyjscioweLayout);
-        panelWyjscioweLayout.setHorizontalGroup(panelWyjscioweLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        panelA2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
+        panelA2.setPreferredSize(new Dimension(330, 330));
+
+        tableAPierv.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "(i,j)"
+            }
+        ));
+        tableAPierv.setFillsViewportHeight(true);
+        tableAPierv.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tableAPierv);
+        if (tableAPierv.getColumnModel().getColumnCount() > 0) {
+            tableAPierv.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableAPierv.columnModel.title0")); // NOI18N
+        }
+
+        GroupLayout panelA2Layout = new GroupLayout(panelA2);
+        panelA2.setLayout(panelA2Layout);
+        panelA2Layout.setHorizontalGroup(panelA2Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane5, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
-        panelWyjscioweLayout.setVerticalGroup(panelWyjscioweLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        panelA2Layout.setVerticalGroup(panelA2Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jScrollPane5, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab(bundle.getString("Main.panelWyjsciowe.TabConstraints.tabTitle"), panelWyjsciowe); // NOI18N
-
-        GroupLayout panelObliczeniaLayout = new GroupLayout(panelObliczenia);
-        panelObliczenia.setLayout(panelObliczeniaLayout);
-        panelObliczeniaLayout.setHorizontalGroup(panelObliczeniaLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 1354, Short.MAX_VALUE)
+        GroupLayout panellWeyfikacjaLayout = new GroupLayout(panellWeyfikacja);
+        panellWeyfikacja.setLayout(panellWeyfikacjaLayout);
+        panellWeyfikacjaLayout.setHorizontalGroup(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(panellWeyfikacjaLayout.createSequentialGroup()
+                .add(10, 10, 10)
+                .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.TRAILING)
+                    .add(jLabel6)
+                    .add(panelA1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(buttonVerification))
+                .add(3, 3, 3)
+                .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.TRAILING)
+                    .add(panelA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel7))
+                .add(3, 3, 3)
+                .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(labelSumEl, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE)
+                    .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.TRAILING)
+                        .add(panelA2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel9)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
-        panelObliczeniaLayout.setVerticalGroup(panelObliczeniaLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 689, Short.MAX_VALUE)
+        panellWeyfikacjaLayout.setVerticalGroup(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(panellWeyfikacjaLayout.createSequentialGroup()
+                .add(24, 24, 24)
+                .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.TRAILING)
+                    .add(panellWeyfikacjaLayout.createSequentialGroup()
+                        .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.BASELINE)
+                            .add(jLabel7)
+                            .add(jLabel6))
+                        .addPreferredGap(LayoutStyle.RELATED)
+                        .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.LEADING)
+                            .add(panelA1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .add(panelA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                    .add(panellWeyfikacjaLayout.createSequentialGroup()
+                        .add(jLabel9, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.RELATED)
+                        .add(panelA2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.BASELINE)
+                    .add(buttonVerification)
+                    .add(labelSumEl, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(352, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(bundle.getString("Main.panelObliczenia.TabConstraints.tabTitle"), panelObliczenia); // NOI18N
-
-        GroupLayout panelHelpLayout = new GroupLayout(panelHelp);
-        panelHelp.setLayout(panelHelpLayout);
-        panelHelpLayout.setHorizontalGroup(panelHelpLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 1354, Short.MAX_VALUE)
-        );
-        panelHelpLayout.setVerticalGroup(panelHelpLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 689, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab(bundle.getString("Main.panelHelp.TabConstraints.tabTitle"), panelHelp); // NOI18N
-
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 1354, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 689, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab(bundle.getString("Main.jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
+        jTabbedPane1.addTab(bundle.getString("Main.panellWeyfikacja.TabConstraints.tabTitle"), panellWeyfikacja); // NOI18N
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.LEADING)
-            .add(GroupLayout.TRAILING, jTabbedPane1)
+            .add(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jTabbedPane1)
-                .add(0, 0, Short.MAX_VALUE))
+                .add(jTabbedPane1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -400,23 +495,23 @@ public class Main extends javax.swing.JFrame {
 
     private void buttonPokazActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonPokazActionPerformed
         int n = (int) spinnerN.getValue();
-        handler.createMatrxA(tableA, n);
-        tableA.setModel(handler.getModelA());
+        lu.createMatrxA(tableA, n);
+        tableA.setModel(lu.getModelA());
     }//GEN-LAST:event_buttonPokazActionPerformed
 
     private void buttonObliczActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonObliczActionPerformed
         
         int n = (int) spinnerN.getValue();
-        handler.makeDecomposition(tableL, tableU, tableA1, n, czas);
+        lu.makeDecomposition(tableL, tableU, n, czas);
         
         //przypisanie nowego modelu dla tabeli L
-        tableL.setModel(handler.getModelL());
+        tableL.setModel(lu.getModelL());
         
         //przypisanie nowego modelu dla tabeli U
-        tableU.setModel(handler.getModelU());
+        tableU.setModel(lu.getModelU());
         
         //przypisanie nowego modelu dla tabeli A1
-        tableA1.setModel(handler.getModelA1()); 
+        tableA1.setModel(lu.getModelA1()); 
  
     }//GEN-LAST:event_buttonObliczActionPerformed
 
@@ -466,34 +561,43 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private ButtonGroup buttonGroup1;
     private JButton buttonOblicz;
     private JButton buttonPokaz;
+    private JButton buttonVerification;
     private JLabel czas;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JLabel jLabel5;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
+    private JLabel jLabel6;
+    private JLabel jLabel7;
+    private JLabel jLabel9;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JScrollPane jScrollPane3;
     private JScrollPane jScrollPane4;
+    private JScrollPane jScrollPane5;
+    private JScrollPane jScrollPane6;
     private JTabbedPane jTabbedPane1;
-    private JPanel panelHelp;
+    private JLabel labelSumEl;
+    private JPanel panelA;
+    private JPanel panelA1;
+    private JPanel panelA2;
     private JPanel panelMacierz;
-    private JPanel panelObliczenia;
     private JPanel panelParametry;
     private JPanel panelTabelaA;
     private JPanel panelTabelaL;
     private JPanel panelTabelaU;
     private JPanel panelWejsciowe;
-    private JPanel panelWyjsciowe;
+    private JPanel panellWeyfikacja;
     private JSpinner spinnerN;
     private JTable tableA;
     private JTable tableA1;
+    private JTable tableAPierv;
     private JTable tableL;
     private JTable tableU;
+    private JTable tableWynik;
     // End of variables declaration//GEN-END:variables
 }

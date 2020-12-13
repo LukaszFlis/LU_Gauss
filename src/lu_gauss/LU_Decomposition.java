@@ -24,16 +24,30 @@ public class LU_Decomposition extends JFrame{
     
     LU_Decomposition() {
     }
+
+    /**
+     * Tworzy nową macierz A
+     * Przypisuje do nie wartosci losowe z określonego zakresu,
+     * Zabezpieczenie operacji dzielenia przez 0
+     * Jeżeli na głownej przekątnej A występuje 0 dodaje 1
+     * Pobiera DefaultTableModel z tabeli A
+     * Modyfikuje modelA
+     * @param tableA tabela w GUI, wyświetla wartosci wygenerowane w macierzy A
+     * @param n rozmiar macierzy A(NxN)
+     */
     public void createMatrxA(JTable tableA, int n ) {
         
         SecureRandom random = new SecureRandom();
         modelA = (DefaultTableModel) tableA.getModel(); 
         matrixA = new double[n][n];
         
-        //przypisanie do matrixA losowych wartości z zakresu 1-9
-        for (double[] matrixA1 : matrixA) {
+        //przypisanie do matrixA losowych wartości z zakresu 0-9
+        for (int i =0; i < matrixA.length; i++) {
             for (int j = 0; j < matrixA.length; j++) {
-                matrixA1[j] = random.nextInt(9) +1;
+                matrixA[i][j] = random.nextInt(9);
+                if (matrixA[i][i] == 0) {
+                    matrixA[i][i] += 1;
+                }
             }
         }
         //ustawienieliczby wierszy i kolumn w tabeli A
@@ -58,13 +72,25 @@ public class LU_Decomposition extends JFrame{
         }
     }
     
-    void makeDecomposition(JTable tableL, JTable tableU,JTable tableA1, int n, JLabel czas) {
+    /**
+     * Define new matrix L and U
+     * Setup lower trianuglar matrix L
+     * Setup upper triangular matrix U
+     * Make the decomposition of matrix A
+     * Define DefaultTableModel for modelL
+     * Define DefaultTableModel for modelU
+     * 
+     * @param tableL tabel in GUI, wich show matrix L
+     * @param tableU tabel in GUI that show matrix U 
+     * @param n size of square matrix
+     * @param czas label in gui, which displays the execution time of the algorithm 
+     */
+    public void makeDecomposition (JTable tableL, JTable tableU, int n, JLabel czas) {
         modelL = (DefaultTableModel) tableL.getModel();
         modelU = (DefaultTableModel) tableU.getModel();
-        modelA1 = (DefaultTableModel)tableA1.getModel();
+        
         double[][] matrixL = new double[n][n];
         double[][] matrixU = new double[n][n];
-        double[][] matrixA1 = new double[n][n];
         //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
         for(int i = 0; i < matrixL.length; i++) {
             for(int j = 0; j < matrixL.length; j++) {
@@ -80,26 +106,12 @@ public class LU_Decomposition extends JFrame{
             }
         }
         
-        //rozkład macierzy A = L i U(żle działający)
-        /*for(int i = 1; i < n -1; i++) {
-            for(int j = i+1; j < n; j++) {
-               if ( matrixA[i][i] == 0 ) {
-                   matrixL[j][i] =  matrixA[j][i]/matrixA[i][i];
-               } else { matrixL[j][i] = 0; }
-            }   
-            for(int j = i + 1; j < n; j++){
-                for (int k = i + 1; k < n; k++) {
-                    matrixA[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
-                }
-            }
-        }*/
         long start = System.nanoTime();
+        
         //rozkład macierzy A = LU
         for(int i = 0; i < n ; i++) {
             for(int j = i; j < n; j++) {
-               if ( matrixA[i][i] != 0 ) {
                    matrixL[j][i] =  matrixA[j][i]/matrixA[i][i];
-               } else { matrixL[j][i] = 0; }
             }   
             for(int j = i + 1; j < n; j++){
                 for (int k = i + 1 ; k < n; k++) {
@@ -108,8 +120,8 @@ public class LU_Decomposition extends JFrame{
             }            
         }
         long time = System.nanoTime()- start;
-        System.out.println(time);
         czas.setText("Czas wykonania algorytmu w nanosekundach: " + String.valueOf(time));
+        
         //przypisanie wartości do macierzy U
         for (int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
@@ -119,38 +131,6 @@ public class LU_Decomposition extends JFrame{
             }
         }
         
-        //werfikacja matrixA=matrixA1
-        //matrixA1 = matrxL * matrixU
-        double sum =0;
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                for (int k = 0; k<n; k++){
-                    sum+= matrixL[i][k] * matrixU[k][j];
-                }
-                matrixA1[i][j] = sum;
-                sum = 0;
-            } 
-        }
-        //ustawienie liczby wierszy i  kolumn w tabeli A1
-        setModelA1(n, n+1);
-        
-        //ustawienie tytułu kolumn od 1 do n w tabeli A1
-        for (int i = 1; i <= n; i++) {
-            tableA1.getColumnModel().getColumn(i).setHeaderValue(i);
-        }
-        
-        //ustawienie wartości wierszy w kolumnie 0 tabeli A1
-        for (int i = 0; i < modelA1.getRowCount(); i++) {
-            modelA1.setValueAt(i + 1, i, 0);
-        }
-        
-        //ustawienie wartości wierszy w kolumnach 1 do n tabeli A1
-        //wartości pobierane są z matrixA1
-        for (int i = 0; i < modelA1.getRowCount(); i++) {
-            for (int j = 1; j < modelA1.getColumnCount(); j++) {
-                modelA1.setValueAt(matrixA1[i][j-1], i, j);
-            }
-        }
         
         //ustawienie liczby wierszy i  kolumn w tabeli L
         setModelL(n, n+1);
@@ -191,6 +171,48 @@ public class LU_Decomposition extends JFrame{
         for (int i = 0; i < modelU.getRowCount(); i++) {
             for (int j = 1; j < modelU.getColumnCount(); j++) {
                 modelU.setValueAt(matrixU[i][j-1], i, j);
+            }
+        }
+    }
+
+    public void verify(int n, double[][] matrixL, double[][] matrixU, JTable tableA1) {
+        
+        modelA1 = (DefaultTableModel)tableA1.getModel();
+        double[][] matrixA1 = new double[n][n];
+        
+        //werfikacja matrixA == matrixA1
+        //matrixA1 = matrxL * matrixU
+        double sum =0;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                for (int k = 0; k<n; k++){
+                    sum+= matrixL[i][k] * matrixU[k][j];
+                }
+                matrixA1[i][j] = sum;
+                sum = 0;
+            }
+        }
+        
+        
+        
+        //ustawienie liczby wierszy i  kolumn w tabeli A1
+        setModelA1(n, n+1);
+        
+        //ustawienie tytułu kolumn od 1 do n w tabeli A1
+        for (int i = 1; i <= n; i++) {
+            tableA1.getColumnModel().getColumn(i).setHeaderValue(i);
+        }
+        
+        //ustawienie wartości wierszy w kolumnie 0 tabeli A1
+        for (int i = 0; i < modelA1.getRowCount(); i++) {
+            modelA1.setValueAt(i + 1, i, 0);
+        }
+        
+        //ustawienie wartości wierszy w kolumnach 1 do n tabeli A1
+        //wartości pobierane są z matrixA1
+        for (int i = 0; i < modelA1.getRowCount(); i++) {
+            for (int j = 1; j < modelA1.getColumnCount(); j++) {
+                modelA1.setValueAt(matrixA1[i][j-1], i, j);
             }
         }
     }
