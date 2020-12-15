@@ -73,12 +73,12 @@ public class Main extends javax.swing.JFrame {
         jLabel4 = new JLabel();
         jLabel5 = new JLabel();
         jLabel2 = new JLabel();
-        buttonOblicz = new JButton();
         czas = new JLabel();
+        buttonOblicz = new JButton();
         panellWeyfikacja = new JPanel();
         panelA1 = new JPanel();
         jScrollPane6 = new JScrollPane();
-        tableWynik = new JTable();
+        tableA1 = new JTable();
         jLabel7 = new JLabel();
         jLabel6 = new JLabel();
         buttonVerification = new JButton();
@@ -86,10 +86,10 @@ public class Main extends javax.swing.JFrame {
         labelSumEl = new JLabel();
         panelA = new JPanel();
         jScrollPane4 = new JScrollPane();
-        tableA1 = new JTable();
+        tableABis = new JTable();
         panelA2 = new JPanel();
         jScrollPane5 = new JScrollPane();
-        tableAPierv = new JTable();
+        tableA2 = new JTable();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("lu_gauss/Bundle"); // NOI18N
@@ -140,7 +140,7 @@ public class Main extends javax.swing.JFrame {
                     .add(jLabel1, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
                     .add(spinnerN, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                     .add(buttonPokaz))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelMacierz.setBackground(new Color(204, 204, 255));
@@ -259,6 +259,8 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setFont(new Font("Times New Roman", 1, 16)); // NOI18N
         jLabel2.setText(bundle.getString("Main.jLabel2.text")); // NOI18N
 
+        czas.setText(bundle.getString("Main.czas.text")); // NOI18N
+
         buttonOblicz.setFont(new Font("Times New Roman", 1, 16)); // NOI18N
         buttonOblicz.setText(bundle.getString("Main.buttonOblicz.text")); // NOI18N
         buttonOblicz.addActionListener(new ActionListener() {
@@ -266,8 +268,6 @@ public class Main extends javax.swing.JFrame {
                 buttonObliczActionPerformed(evt);
             }
         });
-
-        czas.setText(bundle.getString("Main.czas.text")); // NOI18N
 
         GroupLayout panelMacierzLayout = new GroupLayout(panelMacierz);
         panelMacierz.setLayout(panelMacierzLayout);
@@ -278,18 +278,25 @@ public class Main extends javax.swing.JFrame {
                     .add(panelTabelaA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .add(jLabel3))
                 .add(8, 8, 8)
-                .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING)
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING, false)
                     .add(jLabel4)
-                    .add(jLabel2)
-                    .add(panelTabelaL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .add(8, 8, 8)
-                .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING)
-                    .add(buttonOblicz)
-                    .add(panelTabelaU, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel5))
-                .add(55, 55, 55)
-                .add(czas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(46, 46, 46))
+                    .add(panelTabelaL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(GroupLayout.LEADING, panelMacierzLayout.createSequentialGroup()
+                        .add(jLabel2)
+                        .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(buttonOblicz)))
+                .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(panelMacierzLayout.createSequentialGroup()
+                        .add(8, 8, 8)
+                        .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
+                            .add(panelMacierzLayout.createSequentialGroup()
+                                .add(panelTabelaU, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(1, Short.MAX_VALUE))
+                            .add(GroupLayout.TRAILING, jLabel5)))
+                    .add(panelMacierzLayout.createSequentialGroup()
+                        .addPreferredGap(LayoutStyle.RELATED)
+                        .add(czas, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE)
+                        .add(0, 3, Short.MAX_VALUE))))
         );
         panelMacierzLayout.setVerticalGroup(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelMacierzLayout.createSequentialGroup()
@@ -304,37 +311,43 @@ public class Main extends javax.swing.JFrame {
                     .add(panelTabelaU, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.RELATED)
                 .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
-                    .add(GroupLayout.TRAILING, czas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panelMacierzLayout.createSequentialGroup()
-                        .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
-                            .add(jLabel2)
-                            .add(buttonOblicz))
-                        .add(0, 238, Short.MAX_VALUE))))
+                    .add(jLabel2)
+                    .add(buttonOblicz)
+                    .add(czas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         GroupLayout panelWejscioweLayout = new GroupLayout(panelWejsciowe);
         panelWejsciowe.setLayout(panelWejscioweLayout);
         panelWejscioweLayout.setHorizontalGroup(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(panelMacierz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-            .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .add(panelWejscioweLayout.createSequentialGroup()
+                .add(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(panelWejscioweLayout.createSequentialGroup()
+                        .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(GroupLayout.TRAILING, panelWejscioweLayout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(panelMacierz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         panelWejscioweLayout.setVerticalGroup(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelWejscioweLayout.createSequentialGroup()
-                .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(panelMacierz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .add(panelParametry, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(panelMacierz, GroupLayout.PREFERRED_SIZE, 459, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab(bundle.getString("Main.panelWejsciowe.TabConstraints.tabTitle"), panelWejsciowe); // NOI18N
 
-        panellWeyfikacja.setPreferredSize(new Dimension(1020, 764));
+        panellWeyfikacja.setPreferredSize(new Dimension(1020, 768));
 
         panelA1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         panelA1.setPreferredSize(new Dimension(330, 330));
 
-        tableWynik.setAutoCreateRowSorter(true);
-        tableWynik.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
-        tableWynik.setModel(new DefaultTableModel(
+        tableA1.setAutoCreateRowSorter(true);
+        tableA1.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
+        tableA1.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
@@ -342,15 +355,15 @@ public class Main extends javax.swing.JFrame {
                 "(i,j)"
             }
         ));
-        tableWynik.setToolTipText(bundle.getString("Main.A'.toolTipText")); // NOI18N
-        tableWynik.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tableWynik.setFillsViewportHeight(true);
-        tableWynik.setName("A'"); // NOI18N
-        tableWynik.setShowGrid(true);
-        tableWynik.getTableHeader().setReorderingAllowed(false);
-        jScrollPane6.setViewportView(tableWynik);
-        if (tableWynik.getColumnModel().getColumnCount() > 0) {
-            tableWynik.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.A'.columnModel.title0_1")); // NOI18N
+        tableA1.setToolTipText(bundle.getString("Main.A'.toolTipText")); // NOI18N
+        tableA1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableA1.setFillsViewportHeight(true);
+        tableA1.setName("A'"); // NOI18N
+        tableA1.setShowGrid(true);
+        tableA1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane6.setViewportView(tableA1);
+        if (tableA1.getColumnModel().getColumnCount() > 0) {
+            tableA1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.A'.columnModel.title0_1")); // NOI18N
         }
 
         GroupLayout panelA1Layout = new GroupLayout(panelA1);
@@ -370,6 +383,11 @@ public class Main extends javax.swing.JFrame {
 
         buttonVerification.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
         buttonVerification.setText(bundle.getString("Main.buttonVerification.text")); // NOI18N
+        buttonVerification.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                buttonVerificationActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
         jLabel9.setText(bundle.getString("Main.jLabel9.text")); // NOI18N
@@ -380,8 +398,8 @@ public class Main extends javax.swing.JFrame {
         panelA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         panelA.setPreferredSize(new Dimension(330, 330));
 
-        tableA1.setAutoCreateRowSorter(true);
-        tableA1.setModel(new DefaultTableModel(
+        tableABis.setAutoCreateRowSorter(true);
+        tableABis.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
@@ -389,12 +407,12 @@ public class Main extends javax.swing.JFrame {
                 "(i,j)"
             }
         ));
-        tableA1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tableA1.setFillsViewportHeight(true);
-        tableA1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(tableA1);
-        if (tableA1.getColumnModel().getColumnCount() > 0) {
-            tableA1.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableA1.columnModel.title0")); // NOI18N
+        tableABis.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableABis.setFillsViewportHeight(true);
+        tableABis.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tableABis);
+        if (tableABis.getColumnModel().getColumnCount() > 0) {
+            tableABis.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableABis.columnModel.title0")); // NOI18N
         }
 
         GroupLayout panelALayout = new GroupLayout(panelA);
@@ -409,7 +427,7 @@ public class Main extends javax.swing.JFrame {
         panelA2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2));
         panelA2.setPreferredSize(new Dimension(330, 330));
 
-        tableAPierv.setModel(new DefaultTableModel(
+        tableA2.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
@@ -417,11 +435,11 @@ public class Main extends javax.swing.JFrame {
                 "(i,j)"
             }
         ));
-        tableAPierv.setFillsViewportHeight(true);
-        tableAPierv.getTableHeader().setReorderingAllowed(false);
-        jScrollPane5.setViewportView(tableAPierv);
-        if (tableAPierv.getColumnModel().getColumnCount() > 0) {
-            tableAPierv.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableAPierv.columnModel.title0")); // NOI18N
+        tableA2.setFillsViewportHeight(true);
+        tableA2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tableA2);
+        if (tableA2.getColumnModel().getColumnCount() > 0) {
+            tableA2.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableA2.columnModel.title0")); // NOI18N
         }
 
         GroupLayout panelA2Layout = new GroupLayout(panelA2);
@@ -474,7 +492,7 @@ public class Main extends javax.swing.JFrame {
                 .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.BASELINE)
                     .add(buttonVerification)
                     .add(labelSumEl, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("Main.panellWeyfikacja.TabConstraints.tabTitle"), panellWeyfikacja); // NOI18N
@@ -509,22 +527,50 @@ public class Main extends javax.swing.JFrame {
         
         //przypisanie nowego modelu dla tabeli U
         tableU.setModel(lu.getModelU());
-        
-        //przypisanie nowego modelu dla tabeli A1
-        tableA1.setModel(lu.getModelA1()); 
  
     }//GEN-LAST:event_buttonObliczActionPerformed
+
+    private void buttonVerificationActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonVerificationActionPerformed
+        int n = (int) spinnerN.getValue();
+        lu.verify(n, tableABis, tableA1, tableA2, labelSumEl);
+        
+        //przypisanie nowego modelu dla tabeli A1
+        tableA1.setModel(lu.getModelA1());
+        
+        //przypisanie nowego modelu dla tabeli ABis
+        tableABis.setModel(lu.getModelA());
+        
+        //przypisanie nowegomodelu dla tabeli A2
+        tableA2.setModel(lu.getModelA2());
+         
+    }//GEN-LAST:event_buttonVerificationActionPerformed
 
     public JTable getTableA() {
         return tableA;
     }
 
+    public JTable getTableA1() {
+        return tableA1;
+    }
+
+    public JTable getTableA2() {
+        return tableA2;
+    }
+
+    public JTable getTableABis() {
+        return tableABis;
+    }
+    
+    public JTable getTableU() {
+        return tableU;
+    }
+    
     public JTable getTableL() {
         return tableL;
     }
-
-    public JTable getTableU() {
-        return tableU;
+    
+    public JLabel getLabelSumEl() {
+        return labelSumEl;
     }
 
     public JSpinner getSpinnerN() {
@@ -595,9 +641,9 @@ public class Main extends javax.swing.JFrame {
     private JSpinner spinnerN;
     private JTable tableA;
     private JTable tableA1;
-    private JTable tableAPierv;
+    private JTable tableA2;
+    private JTable tableABis;
     private JTable tableL;
     private JTable tableU;
-    private JTable tableWynik;
     // End of variables declaration//GEN-END:variables
 }
