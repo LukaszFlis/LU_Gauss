@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -52,7 +51,6 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new ButtonGroup();
         jTabbedPane1 = new JTabbedPane();
         panelWejsciowe = new JPanel();
         panelParametry = new JPanel();
@@ -96,7 +94,6 @@ public class Main extends javax.swing.JFrame {
         setTitle(bundle.getString("Main.title")); // NOI18N
         setLocationByPlatform(true);
         setName("MainFrame"); // NOI18N
-        setPreferredSize(new Dimension(1024, 768));
         setResizable(false);
 
         jTabbedPane1.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
@@ -169,6 +166,7 @@ public class Main extends javax.swing.JFrame {
         tableA.setFillsViewportHeight(true);
         tableA.setName("macierz A"); // NOI18N
         tableA.setRowSelectionAllowed(false);
+        tableA.setShowGrid(true);
         tableA.getTableHeader().setResizingAllowed(false);
         tableA.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableA);
@@ -202,6 +200,7 @@ public class Main extends javax.swing.JFrame {
         ));
         tableL.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tableL.setFillsViewportHeight(true);
+        tableL.setShowGrid(true);
         tableL.getTableHeader().setResizingAllowed(false);
         tableL.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableL);
@@ -233,6 +232,7 @@ public class Main extends javax.swing.JFrame {
         ));
         tableU.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tableU.setFillsViewportHeight(true);
+        tableU.setShowGrid(true);
         jScrollPane3.setViewportView(tableU);
         if (tableU.getColumnModel().getColumnCount() > 0) {
             tableU.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableU.columnModel.title0")); // NOI18N
@@ -287,16 +287,15 @@ public class Main extends javax.swing.JFrame {
                         .add(buttonOblicz)))
                 .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
                     .add(panelMacierzLayout.createSequentialGroup()
-                        .add(8, 8, 8)
-                        .add(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
-                            .add(panelMacierzLayout.createSequentialGroup()
-                                .add(panelTabelaU, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(1, Short.MAX_VALUE))
-                            .add(GroupLayout.TRAILING, jLabel5)))
-                    .add(panelMacierzLayout.createSequentialGroup()
                         .addPreferredGap(LayoutStyle.RELATED)
                         .add(czas, GroupLayout.PREFERRED_SIZE, 326, GroupLayout.PREFERRED_SIZE)
-                        .add(0, 3, Short.MAX_VALUE))))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(panelMacierzLayout.createSequentialGroup()
+                        .add(8, 8, 8)
+                        .add(panelMacierzLayout.createParallelGroup(GroupLayout.TRAILING)
+                            .add(jLabel5)
+                            .add(panelTabelaU, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(11, Short.MAX_VALUE))))
         );
         panelMacierzLayout.setVerticalGroup(panelMacierzLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelMacierzLayout.createSequentialGroup()
@@ -314,27 +313,24 @@ public class Main extends javax.swing.JFrame {
                     .add(jLabel2)
                     .add(buttonOblicz)
                     .add(czas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         GroupLayout panelWejscioweLayout = new GroupLayout(panelWejsciowe);
         panelWejsciowe.setLayout(panelWejscioweLayout);
         panelWejscioweLayout.setHorizontalGroup(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelWejscioweLayout.createSequentialGroup()
-                .add(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
-                    .add(panelWejscioweLayout.createSequentialGroup()
-                        .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .add(0, 0, Short.MAX_VALUE))
-                    .add(GroupLayout.TRAILING, panelWejscioweLayout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(panelMacierz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .add(panelParametry, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(GroupLayout.TRAILING, panelWejscioweLayout.createSequentialGroup()
+                .add(0, 0, Short.MAX_VALUE)
+                .add(panelMacierz, GroupLayout.PREFERRED_SIZE, 1020, GroupLayout.PREFERRED_SIZE))
         );
         panelWejscioweLayout.setVerticalGroup(panelWejscioweLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelWejscioweLayout.createSequentialGroup()
                 .add(panelParametry, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.UNRELATED)
-                .add(panelMacierz, GroupLayout.PREFERRED_SIZE, 459, GroupLayout.PREFERRED_SIZE)
+                .add(panelMacierz, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -409,6 +405,7 @@ public class Main extends javax.swing.JFrame {
         ));
         tableABis.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tableABis.setFillsViewportHeight(true);
+        tableABis.setShowGrid(true);
         tableABis.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tableABis);
         if (tableABis.getColumnModel().getColumnCount() > 0) {
@@ -436,6 +433,7 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         tableA2.setFillsViewportHeight(true);
+        tableA2.setShowGrid(true);
         tableA2.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tableA2);
         if (tableA2.getColumnModel().getColumnCount() > 0) {
@@ -503,8 +501,8 @@ public class Main extends javax.swing.JFrame {
             .add(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jTabbedPane1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .add(GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(jTabbedPane1, GroupLayout.PREFERRED_SIZE, 768, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -607,7 +605,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private ButtonGroup buttonGroup1;
     private JButton buttonOblicz;
     private JButton buttonPokaz;
     private JButton buttonVerification;

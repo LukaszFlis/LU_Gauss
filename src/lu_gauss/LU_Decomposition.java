@@ -6,7 +6,6 @@
 package lu_gauss;
 
 import java.security.SecureRandom;
-import java.util.Scanner;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -42,7 +41,6 @@ public class LU_Decomposition {
      * @param n rozmiar macierzy A(NxN)
      */
     public void createMatrxA(JTable tableA, int n) {
-        Scanner sc = new Scanner(System.in);
         SecureRandom random = new SecureRandom();
         modelA = (DefaultTableModel) tableA.getModel();
         matrixA = new double[n][n];
@@ -50,7 +48,7 @@ public class LU_Decomposition {
         //przypisanie do matrixA losowych wartości z zakresu 0-9
         for (int i = 0; i < matrixA.length; i++) {
             for (int j = 0; j < matrixA.length; j++) {
-                matrixA[i][j] = sc.nextDouble(); //random.nextInt(9);
+                matrixA[i][j] = random.nextInt(9);
                 if (matrixA[i][i] == 0) {
                     matrixA[i][i] += 1;
                 }
@@ -94,52 +92,65 @@ public class LU_Decomposition {
         modelU = (DefaultTableModel) tableU.getModel();
         matrixL = new double[n][n];
         matrixU = new double[n][n];
-        double[][] matrixACopy = new double[n][n]; 
+        //double[][] matrixACopy = new double[n][n]; 
         //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
-        for (int i = 0; i < matrixL.length; i++) {
+        for (double[] matrixL1 : matrixL) {
             for (int j = 0; j < matrixL.length; j++) {
-                if (i == j) {
-                    matrixL[i][j] = 1;
-                } else {
-                    matrixL[i][j] = 0;
-                }
+                matrixL1[j] = 0;
             }
         }
 
         //zerowanie macierzy U
-        for (int i = 0; i < matrixU.length; i++) {
-            for (int j = 0; j < matrixU.length; j++) {
-                matrixL[i][j] = 0;
-            }
-        }
+       // for (double[] matrixU1 : matrixU) {
+       //     for (int j = 0; j < matrixU.length; j++) {
+       //         matrixU1[j] = 0;
+       //     }
+       // }
         //pomiar czasu
         long start = System.nanoTime();
 
         //rozkład macierzy A = LU
-        for (int i = 0; i < n; i++) {
-            for (int j = i+1; j < n; j++) {
-                matrixL[j][i] = matrixA[j][i] / matrixA[i][i];
+        /*for (int i = 0; i < n; i++) {
+            for (int j = i+1; j <n; j++) {
+                double w = matrixA[j][i] / matrixA[i][i];
+                matrixL[j][i] = w;
+                for (int k = 0; k < n; k++) {
+                    matrixL[j][k] = matrixA[j][k] - w * matrixA[i][k];
+                }
             }
-            for (int j = i ; j < n; j++) {
-                for (int k = i + 1; k < n; k++) {
-                    matrixACopy[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
+        }*/
+        for (int i = 0; i < n; i++) {
+            // Upper Triangular
+            for (int k = i; k < n; k++) {
+                // Summation of L(i, j) * U(j, k)
+                double sum = 0;
+                for (int j = 0; j < i; j++) {
+                    sum += (matrixL[i][j] * matrixU[j][k]);
+                }
+
+                // Evaluating U(i, k)
+                matrixU[i][k] = matrixA[i][k] - sum;
+            }
+
+            // Lower Triangular
+            for (int k = i; k < n; k++) {
+                if (i == k) {
+                    matrixL[i][i] = 1; // Diagonal as 1
+                } else {
+                    // Summation of L(k, j) * U(j, i)
+                    double sum = 0;
+                    for (int j = 0; j < i; j++) {
+                        sum += (matrixL[k][j] * matrixU[j][i]);
+                    }
+
+                    // Evaluating L(k, i)
+                    matrixL[k][i] = (matrixA[k][i] - sum) / matrixU[i][i];
                 }
             }
         }
 
         long time = System.nanoTime() - start;
         czas.setText("Czas wykonania algorytmu w nanosekundach: " + String.valueOf(time));
-
-        //przypisanie wartości do macierzy U
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i <= j) {
-                    matrixU[i][j] = matrixACopy[i][j];
-                } else {
-                    matrixU[i][j] = 0;
-                }
-            }
-        }
 
         //ustawienie liczby wierszy i  kolumn w tabeli L
         setModelL(n, n + 1);
@@ -191,7 +202,7 @@ public class LU_Decomposition {
         //ustawienie liczby wierszy i  kolumn w tabeli ABis
         setModelA(n, n + 1);
 
-        //ustawienie tytułu kolumn od 1 do n w tabeli A
+        //ustawienie tytułu kolumn od 1 do n w tabeli ABis
         for (int i = 1; i <= n; i++) {
             aBis.getColumnModel().getColumn(i).setHeaderValue(i);
         }
@@ -253,7 +264,7 @@ public class LU_Decomposition {
         //Dekompozycja jest poprawna
         double suma = 0;
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; i++) {
+            for (int j = 0; j < n; j++) {
                 matrixA2[i][j] = matrixA1[i][j] - matrixA[i][j];
                 suma += matrixA2[i][j];
             }
