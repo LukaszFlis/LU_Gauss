@@ -6,7 +6,7 @@ import java.util.Objects;
  *Klasa opisuje łuki  i ich kierunek
  * @author Luk
  */
-public class Conection {
+public class Connection {
      
     //ID pierwszego wierzchołka łuku
     private int firstVerticeID;
@@ -15,7 +15,13 @@ public class Conection {
     //Kierunek łuku
     private String directionOfConnection;
 
-    public Conection(int firstVerticeID, int secondVerticeID, String directionOfConnection) {
+    /**
+     *
+     * @param firstVerticeID
+     * @param secondVerticeID
+     * @param directionOfConnection
+     */
+    public Connection(int firstVerticeID, int secondVerticeID, String directionOfConnection) {
         this.firstVerticeID = firstVerticeID;
         this.secondVerticeID = secondVerticeID;
         this.directionOfConnection = directionOfConnection;
@@ -46,7 +52,7 @@ public class Conection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Conection that = (Conection) o;
+        Connection that = (Connection) o;
         return firstVerticeID == that.firstVerticeID &&
                 secondVerticeID == that.secondVerticeID;
     }

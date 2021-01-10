@@ -538,7 +538,7 @@ public class Main extends javax.swing.JFrame {
         //przypisanie nowego modelu dla tabeli ABis
         tableABis.setModel(lu.getModelA());
         
-        //przypisanie nowegomodelu dla tabeli A2
+        //przypisanie nowegovmodelu dla tabeli A2
         tableA2.setModel(lu.getModelA2());
          
     }//GEN-LAST:event_buttonVerificationActionPerformed

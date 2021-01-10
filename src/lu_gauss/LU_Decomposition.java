@@ -32,9 +32,10 @@ public class LU_Decomposition {
     }
 
     /**
-     * Tworzy nową macierz A Przypisuje do nie wartosci losowe z określonego
-     * zakresu, Zabezpieczenie operacji dzielenia przez 0 Jeżeli na głownej
-     * przekątnej A występuje 0 dodaje 1 Pobiera DefaultTableModel z tabeli A
+     * Tworzy nową macierz A,
+     * Przypisuje do niej wartosci losowe z określonego zakresu,
+     * Jeżeli na głownej przekątnej A występuje 0 dodaje 1
+     * Pobiera DefaultTableModel z tabeli A
      * Modyfikuje modelA
      *
      * @param tableA tabela w GUI, wyświetla wartosci wygenerowane w macierzy A
@@ -127,7 +128,6 @@ public class LU_Decomposition {
             }
         }
         
-
         long time = System.nanoTime() - start;
         czas.setText("Czas wykonania algorytmu w nanosekundach: " + String.valueOf(time));
 
