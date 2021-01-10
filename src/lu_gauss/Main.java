@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lu_gauss;
 
 import java.awt.Color;
@@ -33,12 +28,14 @@ import org.jdesktop.layout.LayoutStyle;
  */
 public class Main extends javax.swing.JFrame {
     
-    LU_Decomposition lu = new LU_Decomposition();
+// Uchwyt do pól i metod klasy LU_Decomposition
+    LU_Decomposition lu;
     
     /**
      *
      */
     public Main() {
+        this.lu = new LU_Decomposition();
         initComponents();
     }
 
