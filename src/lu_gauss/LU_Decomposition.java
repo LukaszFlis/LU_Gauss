@@ -94,60 +94,39 @@ public class LU_Decomposition {
         matrixU = new double[n][n];
         //double[][] matrixACopy = new double[n][n]; 
         //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
-        for (double[] matrixL1 : matrixL) {
+        for (int i = 0; i < matrixL.length; i++) {
             for (int j = 0; j < matrixL.length; j++) {
-                matrixL1[j] = 0;
+                if (i == j){
+                    matrixL[i][j] = 1;
+                } else {
+                    matrixL[i][j] = 0;
+                }
             }
         }
 
         //zerowanie macierzy U
-       // for (double[] matrixU1 : matrixU) {
-       //     for (int j = 0; j < matrixU.length; j++) {
-       //         matrixU1[j] = 0;
-       //     }
-       // }
-        //pomiar czasu
-        long start = System.nanoTime();
-
-        //rozkład macierzy A = LU
-        /*for (int i = 0; i < n; i++) {
-            for (int j = i+1; j <n; j++) {
-                double w = matrixA[j][i] / matrixA[i][i];
-                matrixL[j][i] = w;
-                for (int k = 0; k < n; k++) {
-                    matrixL[j][k] = matrixA[j][k] - w * matrixA[i][k];
-                }
-            }
-        }*/
-        for (int i = 0; i < n; i++) {
-            // Upper Triangular
-            for (int k = i; k < n; k++) {
-                // Summation of L(i, j) * U(j, k)
-                double sum = 0;
-                for (int j = 0; j < i; j++) {
-                    sum += (matrixL[i][j] * matrixU[j][k]);
-                }
-
-                // Evaluating U(i, k)
-                matrixU[i][k] = matrixA[i][k] - sum;
-            }
-
-            // Lower Triangular
-            for (int k = i; k < n; k++) {
-                if (i == k) {
-                    matrixL[i][i] = 1; // Diagonal as 1
+        for (int i =0; i < matrixU.length; i++) {
+            for (int j = 0; j < matrixU.length; j++) {
+                if (i <= j) {
+                    matrixU[i][j] = matrixA[i][j];
                 } else {
-                    // Summation of L(k, j) * U(j, i)
-                    double sum = 0;
-                    for (int j = 0; j < i; j++) {
-                        sum += (matrixL[k][j] * matrixU[j][i]);
-                    }
-
-                    // Evaluating L(k, i)
-                    matrixL[k][i] = (matrixA[k][i] - sum) / matrixU[i][i];
+                    matrixU[i][j] = 0;
                 }
             }
         }
+        //pomiar czasu
+        long start = System.nanoTime();
+
+        // Rozkład macierzy A = LU (algorytm z wykładu)
+        for (int i = 0; i < n -2; i++) {
+            for (int j = i+1; j <n; j++) {
+                matrixL[j][i] = matrixA[j][i] / matrixA[i][i];
+                for (int k = 0+1; k < n; k++) {
+                    matrixU[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
+                }
+            }
+        }
+        
 
         long time = System.nanoTime() - start;
         czas.setText("Czas wykonania algorytmu w nanosekundach: " + String.valueOf(time));
@@ -378,6 +357,14 @@ public class LU_Decomposition {
     public void setModelU(int row, int col) {
         this.modelU.setRowCount(row);
         this.modelU.setColumnCount(col);
+    }
+
+    double[][] getMatrixL() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    double[][] getMatrixU() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
