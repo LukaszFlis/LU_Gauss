@@ -24,12 +24,16 @@ public class Graf {
     double[][] matrixL;
     //Macierz górno-trójkątna U
     double[][] matrixU;
-
-    private ArrayList<RowArray> listNestOneModified;// lista danych do tabeli - zmodyfikowane 1-sze gn. pętli
-    private ArrayList<RowArray> listNestTwoModified;// lista danych do tabeli - zmodyfikowane 2-gie gn. pętli
-    private ArrayList<Connection> listOfConnections1;//lista połaczeń między wierchołkami (operacjami "/")
-    private ArrayList<Connection> listOfConnections2;//lista połaczeń między wierchołkami (operacjami "+*")
-
+    
+    // lista danych do tabeli - zmodyfikowane 1-sze gn. pętli
+    private ArrayList<RowArray> listFirstNestModified;
+    // lista danych do tabeli - zmodyfikowane 2-gie gn. pętli
+    private ArrayList<RowArray> listSecondNestModified;
+    //lista połaczeń między wierchołkami (operacjami "/")
+    private ArrayList<Connection> listOfConnections1;
+    //lista połaczeń między wierchołkami (operacjami "+*")
+    private ArrayList<Connection> listOfConnections2;
+    
     public Graf() {
         this.matrixU = handler.getMatrixU();
         this.matrixL = handler.getMatrixL();
@@ -38,8 +42,8 @@ public class Graf {
     }
 
     /**
-     * Metoda wylicza elementy do tabeli i zapisuje je do tablicy przy
-     * zmodyfikowanym 1-szym gnieździe pętli (psiwykład2 - slajd6)
+     * Metoda wylicza elementy:W1 W2 W3 Im Ia2 Ia1 na podstawie zmodyfikowanego 2 gniazda pętli (psiwykład.II - slajd4), 
+     * Wyliczone współrzędne zapisywane są do Tabeli A2
      *
      * @param n Liczba określająca wymiar macierzy A(NxN)
      * @param a1 Tabela, do której zostaną zapisane dane
@@ -47,7 +51,7 @@ public class Graf {
     public void CoordinatesFirstNest(int n, JTable a1) {
         modelA1 = (DefaultTableModel) a1.getModel();
         // lista przechowuje elementy: W1 W2 W3 Im Ia2 Ia1(obiekty klasy RowArray) zliczane z 1 gniazda pętli 
-        listNestOneModified = new ArrayList<>();
+        listFirstNestModified = new ArrayList<>();
         //Zlicza ile razy wykonała sie I pętla for
         int nr = 0;
         // Pierwsze zmodyfikowane gniazdo pętli
@@ -59,15 +63,15 @@ public class Graf {
                     int w1 = i + 1;
                     int w2 = j + 1;
                     int w3 = k + 1;
-                    listNestOneModified.add(new RowArray(nr, w1, w2, w3, new Pairs(w2, w1), new Pairs(w1, w3), new Pairs(w2, w3)));
+                    listFirstNestModified.add(new RowArray(nr, w1, w2, w3));
                 }
             }
         }
     }
 
     /**
-     * Metoda wylicza elementy do tabeli i zapisuje je do tablicy przy
-     * zmodyfikowanym 1-szym gnieździe pętli (psiwykład2 - slajd6)
+     * Metoda wylicza elementy:W1 W2 W3 Im Ia2 Ia1 na podstawie zmodyfikowanego 2 gniazda pętli (psiwykład.II - slajd4), 
+     * Wyliczone współrzędne zapisywane są do Tabeli A2
      *
      * @param n Liczba określająca wymiar macierzy A(NxN)
      * @param a2 Tabela, do której zostaną zapisane dane
@@ -75,7 +79,7 @@ public class Graf {
     public void CoordinatesSecondNest(int n, JTable a2) {
         modelA2 = (DefaultTableModel) a2.getModel();
         //lista przechowuje elementy: W1 W2 W3 Im Ia2 Ia1(obiekty klasy RowArray) zliczane z 2 gniazda pętli 
-        listNestTwoModified = new ArrayList<>();
+        listSecondNestModified = new ArrayList<>();
         //Zlicza ile razy wykonała sie I pętla for
         int nr = 0;
 
@@ -88,20 +92,99 @@ public class Graf {
                     int w1 = i + 1;
                     int w2 = j + 1;
                     int w3 = k + 1;
-                    listNestTwoModified.add(new RowArray(nr, w1, w2, w3, new Pairs(w2, w1), new Pairs(w1, w3), new Pairs(w2, w3)));
+                    listSecondNestModified.add(new RowArray(nr, w1, w2, w3));
+                }
+            }
+        }
+    }
+    /**
+     *Metoda zwraca listę par ID wierzchołków (ID pobierane z obiektu klasy @RowNestedArr), między którymi są połączenia
+     *oraz informację o kierunku(lewo, prawo, góra, skos)
+     * 
+     */
+    public void ConnectionsOfFirstNest() {
+        listOfConnections1 = new ArrayList<>();
+
+        for (int i = 0; i < listFirstNestModified.size(); i++) {
+            for (int j = 1; j < listFirstNestModified.size(); j++) {
+                if (i != j) {
+                    RowArray rowA = listFirstNestModified.get(i);
+                    RowArray rowB = listFirstNestModified.get(j);
+                    
+
+                    //lewo if A.IM == B.IM && A.W3 < B.W3 && A.W1 == B.W1 A.W2 == B.W2
+                    if (rowA.getW1() == rowA.getW1() && rowA.getIm().equals(rowB.getIm())
+                    && rowA.getW3() < rowB.getW3()) {
+                        listOfConnections1.add(new Connection(rowA.getId(), rowB.getId(), "LEFT"));
+                    }//prawo if A.Ia2 = B.Ia2 && A.W2 < B.W2 && A.W1 == B.W1 A.W3 == B.W3
+                    else if (rowA.getW1() == rowB.getW1() && rowA.getIa2().equals(rowB.getIa2())
+                    && rowA.getW2() < rowB.getW2()
+                    ) {
+                        listOfConnections1.add(new Connection(rowA.getId(), rowB.getId(), "RIGHT"));
+                    }//góra if A.W2 == B.W2  &&  A.W3 == B.W3  &&   A.Ia1 == B.Ia1  &&  A.W1 < B.W1
+                    else if (rowA.getW2() == rowA.getW2() && rowA.getW3() == rowA.getW3()
+                            && rowA.getIa1().equals(rowB.getIa1()) && rowA.getW1() < rowB.getW1()) {
+                        listOfConnections1.add(new Connection(rowA.getId(), rowB.getId(), "UP"));
+                    }//skos if A.Ia1 == B.Ia2 && A.W3 == B.W3
+                    if (rowA.getW3() == rowB.getW3() && rowA.getIa1().equals(rowB.getIa2())
+                            && Math.abs(rowA.getW1() - rowB.getW1()) == 1
+                            && Math.abs(rowA.getW2() - rowB.getW2()) == 1
+                    ) {
+                        listOfConnections1.add(new Connection(rowA.getId(), rowB.getId(), "CROSS"));
+                    }
                 }
             }
         }
     }
     
+    /**
+     * Metoda zwraca listę par ID wierzchołków (ID pobierane z obiektu klasy @RowNestedArr), między którymi są połączenia
+     * oraz informację o kierunku(lewo, prawo, góra, skos)
+     */
+    public void ConnectionsOfSecondNest() {
+        listOfConnections2 = new ArrayList<>();
+
+        for (int i = 0; i < listSecondNestModified.size(); i++) {
+            for (int j = 1; j < listSecondNestModified.size(); j++) {
+                if (i != j) {
+                    RowArray rowA = listSecondNestModified.get(i);
+                    RowArray rowB = listSecondNestModified.get(j);
+                    
+
+                    //lewo if A.IM == B.IM && A.W3 < B.W3 && A.W1 == B.W1 A.W2 == B.W2
+                    if (rowA.getW1() == rowA.getW1() && rowA.getIm().equals(rowB.getIm())
+                    && rowA.getW3() < rowB.getW3()) {
+                        listOfConnections2.add(new Connection(rowA.getId(), rowB.getId(), "LEFT"));
+                    }//prawo if A.Ia2 = B.Ia2 && A.W2 < B.W2 && A.W1 == B.W1 A.W3 == B.W3
+                    else if (rowA.getW1() == rowB.getW1() && rowA.getIa2().equals(rowB.getIa2())
+                    && rowA.getW2() < rowB.getW2()
+                    ) {
+                        listOfConnections2.add(new Connection(rowA.getId(), rowB.getId(), "RIGHT"));
+                    }//góra if A.W2 == B.W2  &&  A.W3 == B.W3  &&   A.Ia1 == B.Ia1  &&  A.W1 < B.W1
+                    else if (rowA.getW2() == rowA.getW2() && rowA.getW3() == rowA.getW3()
+                            && rowA.getIa1().equals(rowB.getIa1()) && rowA.getW1() < rowB.getW1()) {
+                        listOfConnections2.add(new Connection(rowA.getId(), rowB.getId(), "UP"));
+                    }//skos if A.Ia1 == B.Ia2 && A.W3 == B.W3
+                    if (rowA.getW3() == rowB.getW3() && rowA.getIa1().equals(rowB.getIa2())
+                            && Math.abs(rowA.getW1() - rowB.getW1()) == 1
+                            && Math.abs(rowA.getW2() - rowB.getW2()) == 1
+                    ) {
+                        listOfConnections1.add(new Connection(rowA.getId(), rowB.getId(), "CROSS"));
+                    }
+                }
+            }
+        }
+    }
+    
+    
 
     //Getters
     public ArrayList<RowArray> getListNestOneModified() {
-        return listNestOneModified;
+        return listFirstNestModified;
     }
 
     public ArrayList<RowArray> getListNestTwoModified() {
-        return listNestTwoModified;
+        return listSecondNestModified;
     }
 
     public ArrayList<Connection> getListOfConnections1() {
