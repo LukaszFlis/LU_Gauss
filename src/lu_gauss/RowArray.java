@@ -24,8 +24,6 @@ public class RowArray {
      * @param w2 druga współrzędna wierzchołka
      * @param w3 trzecia współrzędna wierzchołka
      */
-    
-    
     public RowArray(int id, int w1, int w2, int w3) {
         this.id = id;
         this.w1 = w1;
