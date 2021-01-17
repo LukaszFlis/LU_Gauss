@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.util.Arrays;
 
 /**
  *
@@ -49,7 +50,7 @@ public class LU_Decomposition {
             for (int j = 0; j < matrixA.length; j++) {
                 matrixA[i][j] = random.nextInt(9);
                 if (matrixA[i][i] == 0) {
-                  matrixA[i][i] += 1;
+                    matrixA[i][i] += 1;
                 }
             }
         }
@@ -91,7 +92,8 @@ public class LU_Decomposition {
         modelU = (DefaultTableModel) tableU.getModel();
         matrixL = new double[n][n];
         matrixU = new double[n][n];
-
+        double[][] matrixAC = new double[n][n];
+        matrixAC = Arrays.copyOf(matrixA, matrixA.length);
         //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
         for (int i = 0; i < matrixL.length; i++) {
             for (int j = 0; j < matrixL.length; j++) {
@@ -104,7 +106,7 @@ public class LU_Decomposition {
         }
 
         //zerowanie macierzy U
-        for (int i = 0; i < matrixU.length; i++) {
+        /*for (int i = 0; i < matrixU.length; i++) {
             for (int j = 0; j < matrixU.length; j++) {
                 if (i <= j) {
                     matrixU[i][j] = matrixA[i][j];
@@ -112,20 +114,36 @@ public class LU_Decomposition {
                     matrixU[i][j] = 0;
                 }
             }
-        }
+        }*/
         //pomiar czasu
         long start = System.nanoTime();
 
         // Rozkład macierzy A = LU (algorytm z wykładu)
-        for (int i = 0; i < n -2; i++) {
-            for (int j = i+1 ; j < n-1; j++) {
-                matrixL[j][i] = matrixA[j][i] / matrixA[i][i];
-                for (int k = i+1; k < n-1; k++) {
-                    matrixU[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
+        for (int i = 0; i < n; i++) {
+            matrixU[i][i] = matrixA[i][i];
+            for (int j = i+1 ; j < n; j++) {
+                matrixL[j][i] = matrixA[j][i] / matrixU[i][i];
+                matrixA[j][i] = matrixL[j][i];
+                matrixU[i][i] = matrixA[i][i];
+                for (int k = i+1; k < n; k++) {
+                    matrixA[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixU[i][k]);
                 }
             }
         }
+ /*for(int i = 0; i < n; i++){​​
+    matrixU[i][i] = matrixA[i][i];
 
+    for(int j = i + 1; j < n; j++){​​
+        matrixL[j][i] = matrixA[j][i] / matrixU[i][i];
+        matrixU[i][j] = matrixA[i][j];
+    }​​
+    for(int j = i + 1; j < n; j++){​​
+        for(int k = i + 1; k < n ; k++){​​
+            matrixA[j][k]=matrixA[j][k]-(matrixL[j][i]*matrixU[i][k]);
+        }​​
+    }​​
+    matrixL[i][i] = 1;
+}​​*/
         long time = System.nanoTime() - start;
         czas.setText("Czas wykonania algorytmu w nanosekundach: " + String.valueOf(time));
 
@@ -274,13 +292,15 @@ public class LU_Decomposition {
     public double[][] getMatrixA() {
         return matrixA;
     }
-    
+
     public double[][] getMatrixL() {
         return matrixL;
     }
+
     public double[][] getMatrixU() {
         return matrixU;
     }
+
     /**
      * Set value in matrix A specified cell
      *
@@ -326,7 +346,8 @@ public class LU_Decomposition {
     }
 
     /**
-     *Set rows and columns of DefaultTableModel
+     * Set rows and columns of DefaultTableModel
+     *
      * @param row number of rows
      * @param col number of columns
      */

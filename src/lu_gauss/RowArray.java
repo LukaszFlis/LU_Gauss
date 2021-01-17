@@ -68,6 +68,20 @@ public class RowArray {
         return rawArray;
     }
 
+    public void setW1(int w1) {
+        this.w1 = w1;
+    }
+
+    public void setW2(int w2) {
+        this.w2 = w2;
+    }
+
+    public void setW3(int w3) {
+        this.w3 = w3;
+    }
+    
+    
+
     @Override
     public String toString() {
         return id + ". " + w1 + " " + w2 + " " + w3 + " " + im + " " + ia2 + " " + ia1;
