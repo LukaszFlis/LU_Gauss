@@ -117,10 +117,10 @@ public class LU_Decomposition {
         long start = System.nanoTime();
 
         // Rozkład macierzy A = LU (algorytm z wykładu)
-        for (int i = 0; i < n - 2; i++) {
-            for (int j = i + 1; j < n; j++) {
+        for (int i = 0; i < n -2; i++) {
+            for (int j = i+1 ; j < n-1; j++) {
                 matrixL[j][i] = matrixA[j][i] / matrixA[i][i];
-                for (int k = i + 1; k < n; k++) {
+                for (int k = i+1; k < n-1; k++) {
                     matrixU[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
                 }
             }

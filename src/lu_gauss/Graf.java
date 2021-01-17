@@ -14,18 +14,10 @@ public class Graf {
 
     //Uchwyt do pól i metod klasy LU_Decomposition
     LU_Decomposition handler = new LU_Decomposition();
-
     //Model tabeli dla listy wierzchołków i łuków zebranych z pierwszego giazda pętli for
     DefaultTableModel modelA1;
     // model tabeli dla listy wierzchołków i łuków zebranych z drugieg gniazda pętli for
-    DefaultTableModel modelA2;
-
-    //Macierz wejściowa A
-    //double[][] matrixA = handler.getMatrixA();
-    //Macierz dolno-trójkątna L
-    //double[][] matrixL;
-    //Macierz górno-trójkątna U
-    //double[][] matrixU;
+    DefaultTableModel modelA2; 
     // lista danych do tabeli - zmodyfikowane 1-sze gn. pętli
     private ArrayList<RowArray> listFirstNestModified;
     // lista danych do tabeli - zmodyfikowane 2-gie gn. pętli
@@ -34,6 +26,7 @@ public class Graf {
     private ArrayList<Connection> listOfConnections1;
     //lista połaczeń między wierchołkami (operacjami "+*")
     private ArrayList<Connection> listOfConnections2;
+    private DefaultTableModel modelC;
 
     public Graf() {
 
@@ -49,7 +42,7 @@ public class Graf {
      */
     public void CoordinatesFirstNest(int n, JTable a1) {
         double[][] matrixA = new double[n][n];
-        SecureRandom random = new SecureRandom();
+        /*SecureRandom random = new SecureRandom();
         for (int i = 0; i < matrixA.length; i++) {
             for (int j = 0; j < matrixA.length; j++) {
                 matrixA[i][j] = random.nextInt(9);
@@ -57,9 +50,9 @@ public class Graf {
                     matrixA[i][i] += 1;
                 }
             }
-        }
+        }*/
         double[][] matrixL = new double[n][n];
-        for (int i = 0; i < matrixL.length; i++) {
+        /*for (int i = 0; i < matrixL.length; i++) {
             for (int j = 0; j < matrixL.length; j++) {
                 if (i == j) {
                     matrixL[i][j] = 1;
@@ -67,14 +60,14 @@ public class Graf {
                     matrixL[i][j] = 0;
                 }
             }
-        }
+        }*/
         modelA1 = (DefaultTableModel) a1.getModel();
         // lista przechowuje elementy: W1 W2 W3 Im Ia2 Ia1(obiekty klasy RowArray) zliczane z 1 gniazda pętli 
         listFirstNestModified = new ArrayList<>();
         //Zlicza ile razy wykonała sie I pętla for
         int nr = 0;
         // Pierwsze zmodyfikowane gniazdo pętli
-        for (int i = 0; i < n - 2; i++) {
+        for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
                 for (int k = i; k < i+1; k++) {
                     matrixL[j][i] = matrixA[j][i] / matrixA[i][i];
@@ -161,7 +154,7 @@ public class Graf {
         int nr = 0;
 
         //Drugie zmodyfikowane gniazdo pętli
-        for (int i = 0; i < n - 2; i++) {
+        for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
                 for (int k = i + 1; k < n; k++) {
                     matrixU[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixA[i][k]);
@@ -173,18 +166,27 @@ public class Graf {
                 }
             }
         }
+        for (int i = 0; i < listSecondNestModified.size(); i++) {
+            int id = listSecondNestModified.get(i).getId();
+            int w1 = listSecondNestModified.get(i).getW1();
+            int w2 = listSecondNestModified.get(i).getW2();
+            int w3 = listSecondNestModified.get(i).getW3();
+            Pairs im = listSecondNestModified.get(i).getIm();
+            Pairs ia2 = listSecondNestModified.get(i).getIa2();
+            Pairs ia1 = listSecondNestModified.get(i).getIa1();
+            Object[] data = {id, w1, w2, w3, im, ia2, ia1};
+            modelA2.addRow(data);
+        }
     }
 
     /**
-     * Metoda zwraca listę par ID wierzchołków (ID pobierane z obiektu klasy
-     *
-     * @RowNestedArr), między którymi są połączenia oraz informację o
-     * kierunku(lewo, prawo, góra, skos)
-     *
+     * Metoda zwraca listę par ID wierzchołków (ID pobierane z obiektu klasy @RowArray), 
+     * między którymi są połączenia oraz informację o kierunku(lewo, prawo, góra, skos)
+     *@param con Tabela, wktórej zapisywane są pray połączeń i ich kierunek
      */
-    public void ConnectionsOfFirstNest() {
+    public void ConnectionsOfFirstNest(JTable con) {
         listOfConnections1 = new ArrayList<>();
-
+        modelC = (DefaultTableModel)con.getModel();
         for (int i = 0; i < listFirstNestModified.size(); i++) {
             for (int j = 1; j < listFirstNestModified.size(); j++) {
                 if (i != j) {
@@ -211,6 +213,13 @@ public class Graf {
                     }
                 }
             }
+        }
+        for (int i = 0; i < listOfConnections1.size(); i++) {
+            int id1 = listOfConnections1.get(i).getFirstVerticeID();
+            int id2 = listOfConnections1.get(i).getSecondVerticeID();
+            String direction = listOfConnections1.get(i).getDirectionOfConnection();
+            Object[] data = {id1, id2, direction};
+            modelC.addRow(data);
         }
     }
 
@@ -276,5 +285,7 @@ public class Graf {
     public DefaultTableModel getModelA2() {
         return modelA2;
     }
-
+    public DefaultTableModel getModelC() {
+        return modelC;
+    }
 }
