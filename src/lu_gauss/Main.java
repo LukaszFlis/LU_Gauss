@@ -479,7 +479,7 @@ public class Main extends javax.swing.JFrame {
                     .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.TRAILING)
                         .add(panelA2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(jLabel9)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         panellWeyfikacjaLayout.setVerticalGroup(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panellWeyfikacjaLayout.createSequentialGroup()
@@ -541,14 +541,13 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tableFirstNest.setAutoCreateRowSorter(true);
         tableFirstNest.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
         tableFirstNest.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nr", "W1", "W2", "W3", "Il[nr]", "Ia2[nr]", "Ia1[nr]", "Ia22[nr]", "Ia11[nr]"
+                "Nr", "W1", "W2", "W3", "Il[nr]", "Ia2[nr]", "Ia1[nr]"
             }
         ));
         tableFirstNest.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -566,11 +565,8 @@ public class Main extends javax.swing.JFrame {
             tableFirstNest.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title4")); // NOI18N
             tableFirstNest.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title5")); // NOI18N
             tableFirstNest.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title6")); // NOI18N
-            tableFirstNest.getColumnModel().getColumn(7).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title7")); // NOI18N
-            tableFirstNest.getColumnModel().getColumn(8).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title8")); // NOI18N
         }
 
-        tableOfConnections.setAutoCreateRowSorter(true);
         tableOfConnections.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
         tableOfConnections.setModel(new DefaultTableModel(
             new Object [][] {
@@ -626,7 +622,7 @@ public class Main extends javax.swing.JFrame {
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.LEADING)
-            .add(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .add(jTabbedPane1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.LEADING)
             .add(GroupLayout.TRAILING, layout.createSequentialGroup()
@@ -673,9 +669,10 @@ public class Main extends javax.swing.JFrame {
 
     private void btnNestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNestsActionPerformed
         int n = (int) spinnerN.getValue();
-        graf.CoordinatesFirstNest(n, tableFirstNest);
-        tableFirstNest.setModel(graf.getModelA1());
+        graf.Coordinates(n, tableFirstNest);
         graf.sort(tableFirstNest);
+        tableFirstNest.setModel(graf.getModelA1());
+        
     }//GEN-LAST:event_btnNestsActionPerformed
 
     private void btnListConnectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListConnectionsActionPerformed
@@ -706,6 +703,15 @@ public class Main extends javax.swing.JFrame {
     public JTable getTableL() {
         return tableL;
     }
+
+    public static JTable getTableFirstNest() {
+        return tableFirstNest;
+    }
+
+    public JTable getTableOfConnections() {
+        return tableOfConnections;
+    }
+    
 
     public JLabel getLabelSumEl() {
         return labelSumEl;
