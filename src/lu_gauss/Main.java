@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lu_gauss;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
@@ -32,13 +29,18 @@ import org.jdesktop.layout.LayoutStyle;
  * @author Luk
  */
 public class Main extends javax.swing.JFrame {
-    
-    LU_Decomposition lu = new LU_Decomposition();
-    
+
+    // Uchwyt do pól i metod klasy LU_Decomposition
+    LU_Decomposition lu;
+    // Uchwyt do pól i metod klasy Graf
+    Graf graf;
+
     /**
      *
      */
     public Main() {
+        this.lu = new LU_Decomposition();
+        this.graf = new Graf();
         initComponents();
     }
 
@@ -88,6 +90,15 @@ public class Main extends javax.swing.JFrame {
         panelA2 = new JPanel();
         jScrollPane5 = new JScrollPane();
         tableA2 = new JTable();
+        panelTabelePomocnicze = new JPanel();
+        jPanel2 = new JPanel();
+        btnNests = new JButton();
+        btnListConnections = new JButton();
+        jPanel3 = new JPanel();
+        jScrollPane7 = new JScrollPane();
+        tableFirstNest = new JTable();
+        jScrollPane8 = new JScrollPane();
+        tableOfConnections = new JTable();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("lu_gauss/Bundle"); // NOI18N
@@ -468,7 +479,7 @@ public class Main extends javax.swing.JFrame {
                     .add(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.TRAILING)
                         .add(panelA2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .add(jLabel9)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         panellWeyfikacjaLayout.setVerticalGroup(panellWeyfikacjaLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panellWeyfikacjaLayout.createSequentialGroup()
@@ -495,10 +506,123 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab(bundle.getString("Main.panellWeyfikacja.TabConstraints.tabTitle"), panellWeyfikacja); // NOI18N
 
+        btnNests.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        btnNests.setText(bundle.getString("Main.btnNests.text")); // NOI18N
+        btnNests.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnNestsActionPerformed(evt);
+            }
+        });
+
+        btnListConnections.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        btnListConnections.setText(bundle.getString("Main.btnListConnections.text")); // NOI18N
+        btnListConnections.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnListConnectionsActionPerformed(evt);
+            }
+        });
+
+        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(156, 156, 156)
+                .add(btnNests)
+                .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(btnListConnections, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+                .add(189, 189, 189))
+        );
+        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(GroupLayout.BASELINE)
+                    .add(btnListConnections)
+                    .add(btnNests))
+                .addContainerGap())
+        );
+
+        tableFirstNest.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
+        tableFirstNest.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nr", "W1", "W2", "W3", "Il[nr]", "Ia2[nr]", "Ia1[nr]"
+            }
+        ));
+        tableFirstNest.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableFirstNest.setColumnSelectionAllowed(true);
+        tableFirstNest.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        tableFirstNest.setFillsViewportHeight(true);
+        tableFirstNest.setShowGrid(true);
+        jScrollPane7.setViewportView(tableFirstNest);
+        tableFirstNest.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        if (tableFirstNest.getColumnModel().getColumnCount() > 0) {
+            tableFirstNest.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title0")); // NOI18N
+            tableFirstNest.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title1_4")); // NOI18N
+            tableFirstNest.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title2_4")); // NOI18N
+            tableFirstNest.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title3_4")); // NOI18N
+            tableFirstNest.getColumnModel().getColumn(4).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title4")); // NOI18N
+            tableFirstNest.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title5")); // NOI18N
+            tableFirstNest.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title6")); // NOI18N
+        }
+
+        tableOfConnections.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
+        tableOfConnections.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID1", "ID2", "Direction"
+            }
+        ));
+        tableOfConnections.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableOfConnections.setFillsViewportHeight(true);
+        tableOfConnections.setShowGrid(true);
+        jScrollPane8.setViewportView(tableOfConnections);
+        if (tableOfConnections.getColumnModel().getColumnCount() > 0) {
+            tableOfConnections.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title0")); // NOI18N
+            tableOfConnections.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title1_4")); // NOI18N
+            tableOfConnections.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title2_4")); // NOI18N
+        }
+
+        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane7)
+                .add(55, 55, 55)
+                .add(jScrollPane8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .add(50, 50, 50))
+        );
+        jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                .add(jPanel3Layout.createParallelGroup(GroupLayout.TRAILING)
+                    .add(GroupLayout.LEADING, jScrollPane8, GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
+                    .add(jScrollPane7))
+                .addContainerGap())
+        );
+
+        GroupLayout panelTabelePomocniczeLayout = new GroupLayout(panelTabelePomocnicze);
+        panelTabelePomocnicze.setLayout(panelTabelePomocniczeLayout);
+        panelTabelePomocniczeLayout.setHorizontalGroup(panelTabelePomocniczeLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelTabelePomocniczeLayout.setVerticalGroup(panelTabelePomocniczeLayout.createParallelGroup(GroupLayout.LEADING)
+            .add(panelTabelePomocniczeLayout.createSequentialGroup()
+                .add(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab(bundle.getString("Main.panelTabelePomocnicze.TabConstraints.tabTitle"), panelTabelePomocnicze); // NOI18N
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.LEADING)
-            .add(jTabbedPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .add(jTabbedPane1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.LEADING)
             .add(GroupLayout.TRAILING, layout.createSequentialGroup()
@@ -511,42 +635,55 @@ public class Main extends javax.swing.JFrame {
 
     private void buttonPokazActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonPokazActionPerformed
         int n = (int) spinnerN.getValue();
-        lu.createMatrxA(tableA, n);
+        lu.createMatrixA(tableA, n);
         tableA.setModel(lu.getModelA());
     }//GEN-LAST:event_buttonPokazActionPerformed
 
     private void buttonObliczActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonObliczActionPerformed
-        
+
         int n = (int) spinnerN.getValue();
         lu.makeDecomposition(tableL, tableU, n, czas);
-        
+
         //przypisanie nowego modelu dla tabeli L
         tableL.setModel(lu.getModelL());
-        
+
         //przypisanie nowego modelu dla tabeli U
         tableU.setModel(lu.getModelU());
- 
+
     }//GEN-LAST:event_buttonObliczActionPerformed
 
     private void buttonVerificationActionPerformed(ActionEvent evt) {//GEN-FIRST:event_buttonVerificationActionPerformed
         int n = (int) spinnerN.getValue();
         lu.verify(n, tableABis, tableA1, tableA2, labelSumEl);
-        
+
         //przypisanie nowego modelu dla tabeli A1
         tableA1.setModel(lu.getModelA1());
-        
+
         //przypisanie nowego modelu dla tabeli ABis
         tableABis.setModel(lu.getModelA());
-        
-        //przypisanie nowegomodelu dla tabeli A2
+
+        //przypisanie nowego modelu dla tabeli A2
         tableA2.setModel(lu.getModelA2());
-         
+
     }//GEN-LAST:event_buttonVerificationActionPerformed
 
-    public JTable getTableA() {
-        return tableA;
-    }
+    private void btnNestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNestsActionPerformed
+        int n = (int) spinnerN.getValue();
+        graf.Coordinates(n, tableFirstNest);
+        graf.sort(tableFirstNest);
+        tableFirstNest.setModel(graf.getModelA1());
+        
+    }//GEN-LAST:event_btnNestsActionPerformed
 
+    private void btnListConnectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListConnectionsActionPerformed
+        int n = (int) spinnerN.getValue();
+        graf.Connections(tableFirstNest, tableOfConnections);
+        tableOfConnections.setModel(graf.getModelC());
+    }//GEN-LAST:event_btnListConnectionsActionPerformed
+
+    /* public JTable getTableA() {
+        return tableA;
+    }*/
     public JTable getTableA1() {
         return tableA1;
     }
@@ -558,15 +695,24 @@ public class Main extends javax.swing.JFrame {
     public JTable getTableABis() {
         return tableABis;
     }
-    
+
     public JTable getTableU() {
         return tableU;
     }
-    
+
     public JTable getTableL() {
         return tableL;
     }
+
+    public static JTable getTableFirstNest() {
+        return tableFirstNest;
+    }
+
+    public JTable getTableOfConnections() {
+        return tableOfConnections;
+    }
     
+
     public JLabel getLabelSumEl() {
         return labelSumEl;
     }
@@ -574,7 +720,8 @@ public class Main extends javax.swing.JFrame {
     public JSpinner getSpinnerN() {
         return spinnerN;
     }
- 
+
+
     /**
      * @param args the command line arguments
      */
@@ -595,7 +742,7 @@ public class Main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -605,6 +752,8 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton btnListConnections;
+    private JButton btnNests;
     private JButton buttonOblicz;
     private JButton buttonPokaz;
     private JButton buttonVerification;
@@ -617,12 +766,16 @@ public class Main extends javax.swing.JFrame {
     private JLabel jLabel6;
     private JLabel jLabel7;
     private JLabel jLabel9;
+    private JPanel jPanel2;
+    private JPanel jPanel3;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
     private JScrollPane jScrollPane3;
     private JScrollPane jScrollPane4;
     private JScrollPane jScrollPane5;
     private JScrollPane jScrollPane6;
+    private JScrollPane jScrollPane7;
+    private JScrollPane jScrollPane8;
     private JTabbedPane jTabbedPane1;
     private JLabel labelSumEl;
     private JPanel panelA;
@@ -633,6 +786,7 @@ public class Main extends javax.swing.JFrame {
     private JPanel panelTabelaA;
     private JPanel panelTabelaL;
     private JPanel panelTabelaU;
+    private JPanel panelTabelePomocnicze;
     private JPanel panelWejsciowe;
     private JPanel panellWeyfikacja;
     private JSpinner spinnerN;
@@ -640,7 +794,9 @@ public class Main extends javax.swing.JFrame {
     private JTable tableA1;
     private JTable tableA2;
     private JTable tableABis;
+    private static JTable tableFirstNest;
     private JTable tableL;
+    private JTable tableOfConnections;
     private JTable tableU;
     // End of variables declaration//GEN-END:variables
 }
