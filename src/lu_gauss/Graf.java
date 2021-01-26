@@ -169,9 +169,6 @@ public class Graf {
         return listNestModified;
     }
 
-    /*public ArrayList<RowArray> getListSecondNestModified() {
-        return listSecondNestModified;
-    }*/
     public ArrayList<Connection> getListOfConnections() {
         return listOfConnections;
     }
