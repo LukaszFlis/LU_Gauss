@@ -96,7 +96,7 @@ public class LU_Decomposition {
         matrixAC = Arrays.copyOf(matrixA, matrixA.length);
         //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
         for (int i = 0; i < matrixL.length; i++) {
-            for (int j = 0; j < matrixL.length; j++) {
+            for (int j = 0; j < matrixL[i].length; j++) {
                 if (i == j) {
                     matrixL[i][j] = 1;
                 } else {
@@ -119,18 +119,24 @@ public class LU_Decomposition {
         long start = System.nanoTime();
 
         // Rozkład macierzy A = LU (algorytm z wykładu)
-        for (int i = 0; i < n; i++) {
-            matrixU[i][i] = matrixA[i][i];
-            for (int j = i+1 ; j < n; j++) {
-                matrixL[j][i] = matrixA[j][i] / matrixU[i][i];
-                matrixA[j][i] = matrixL[j][i];
-                matrixU[i][i] = matrixA[i][i];
-                for (int k = i+1; k < n; k++) {
-                    matrixA[j][k] = matrixA[j][k] - (matrixL[j][i] * matrixU[i][k]);
+        for (int i = 0; i < n-1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                matrixL[j][i] = matrixA[j][i] / matrixA[i][i];
+                for (int k = +1; k < n; k++) {
+                    matrixAC[j][k] = matrixA[j][k] - matrixL[j][i] * matrixA[i][k];
                 }
             }
         }
- /*for(int i = 0; i < n; i++){​​
+        for (int i = 0; i < matrixU.length; i++) {
+            for (int j = 0; j < matrixU[i].length; j++) {
+                if (i <= j) {
+                    matrixU[i][j] = matrixAC[i][j];
+                } else {
+                    matrixU[i][j] = 0;
+                }
+            }
+        }
+        /*for(int i = 0; i < n; i++){​​
     matrixU[i][i] = matrixA[i][i];
 
     for(int j = i + 1; j < n; j++){​​
