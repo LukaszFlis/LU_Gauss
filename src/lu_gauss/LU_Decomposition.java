@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lu_gauss;
 
 import java.security.SecureRandom;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.util.Arrays;
 
 /**
  *
@@ -92,67 +86,36 @@ public class LU_Decomposition {
         modelU = (DefaultTableModel) tableU.getModel();
         matrixL = new double[n][n];
         matrixU = new double[n][n];
-        double[][] matrixAC = new double[n][n];
-        matrixAC = Arrays.copyOf(matrixA, matrixA.length);
-        //zerowanie macierzyL i ustawienie '1' na głownej przekątnej
-        for (int i = 0; i < matrixL.length; i++) {
-            for (int j = 0; j < matrixL[i].length; j++) {
-                if (i == j) {
-                    matrixL[i][j] = 1;
-                } else {
-                    matrixL[i][j] = 0;
-                }
-            }
-        }
 
-        //zerowanie macierzy U
-        /*for (int i = 0; i < matrixU.length; i++) {
-            for (int j = 0; j < matrixU.length; j++) {
-                if (i <= j) {
-                    matrixU[i][j] = matrixA[i][j];
-                } else {
-                    matrixU[i][j] = 0;
-                }
-            }
-        }*/
         //pomiar czasu
         long start = System.nanoTime();
 
         // Rozkład macierzy A = LU (algorytm z wykładu)
         for (int i = 0; i < n-1; i++) {
-            for (int j = i + 1; j < n; j++) {
+            for (int j = i+1 ; j < n ; j++) {
                 matrixL[j][i] = matrixA[j][i] / matrixA[i][i];
-                for (int k = +1; k < n; k++) {
-                    matrixAC[j][k] = matrixA[j][k] - matrixL[j][i] * matrixA[i][k];
-                }
             }
-        }
-        for (int i = 0; i < matrixU.length; i++) {
-            for (int j = 0; j < matrixU[i].length; j++) {
-                if (i <= j) {
-                    matrixU[i][j] = matrixAC[i][j];
-                } else {
-                    matrixU[i][j] = 0;
+            for (int j = i+1; j < n; j++) {
+                for (int k = i + 1; k < n; k++) {
+                    matrixA[j][k] -= matrixL[j][i] * matrixA[i][k];
                 }
-            }
-        }
-        /*for(int i = 0; i < n; i++){​​
-    matrixU[i][i] = matrixA[i][i];
 
-    for(int j = i + 1; j < n; j++){​​
-        matrixL[j][i] = matrixA[j][i] / matrixU[i][i];
-        matrixU[i][j] = matrixA[i][j];
-    }​​
-    for(int j = i + 1; j < n; j++){​​
-        for(int k = i + 1; k < n ; k++){​​
-            matrixA[j][k]=matrixA[j][k]-(matrixL[j][i]*matrixU[i][k]);
-        }​​
-    }​​
-    matrixL[i][i] = 1;
-}​​*/
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i <= j) {
+                    matrixU[i][j] = matrixA[i][j];
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                    matrixL[i][i] = 1;
+            }
+        }
         long time = System.nanoTime() - start;
         czas.setText("Czas wykonania algorytmu w nanosekundach: " + String.valueOf(time));
-
         //ustawienie liczby wierszy i  kolumn w tabeli L
         setModelL(n, n + 1);
 
@@ -227,7 +190,7 @@ public class LU_Decomposition {
         matrixA2 = new double[n][n];
 
         //werfikacja matrixA == matrixA1
-        //matrixA1 = matrxL * matrixU
+        //matrixA1 = matrixL * matrixU
         double sum = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {

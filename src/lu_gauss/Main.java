@@ -573,7 +573,7 @@ public class Main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID1", "ID2", "Direction"
+                "Id1", "Id2", "Direction"
             }
         ));
         tableOfConnections.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
