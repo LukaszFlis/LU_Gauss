@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author Luk
  */
 public class MP {
-    private  Scanner sc = new Scanner(System.in);
+    private  static Scanner sc = new Scanner(System.in);
     private int[][] fS = new int[2][3];
     private int[] ft = new int[3];
     private int[][] d = {{1, 0, 0, 1}, {0, 1, 0, 1}, {0, 0, 1, 0}};
@@ -62,7 +62,7 @@ public class MP {
      * @param k a list containing the coordinates of the graph's vertices
      * @return 
      */
-    public static ArrayList initK(ArrayList<Vertice> k) { //ta metoda nie odpala się
+    public static ArrayList initK(ArrayList<Vertices> k) { //ta metoda nie odpala się
         System.out.println("");
         int w1= 0;
         int w2 =0;
@@ -75,7 +75,7 @@ public class MP {
             w2 = sc.nextInt();
             System.out.println("Podaj w3" + nr + "wierzchołka: ");
             w3 = sc.nextInt();
-            k.add(new Vertice(w1, w2, w3));
+            k.add(new Vertices(w1, w2, w3));
             nr++;
         }
         return k;
@@ -139,7 +139,7 @@ public class MP {
      * @param k a list containing the coordinates of the graph's vertices
      * @param ft temporal projection matrix
      */
-    public static void setFtK(ArrayList<Integer> ftK, ArrayList<Vertice> k, int[] ft) {
+    public static void setFtK(ArrayList<Integer> ftK, ArrayList<Vertices> k, int[] ft) {
         var w1 = 0;
         var w2 = 0;
         var w3 = 0;
@@ -161,7 +161,7 @@ public class MP {
      * @param k a list containing the coordinates of the graph's vertices
      * @param fs spatial mapping matrix
      */
-    public static void setFsK(ArrayList<Pairs> fsK, ArrayList<Vertice> k, int[][] fs) {
+    public static void setFsK(ArrayList<Pairs> fsK, ArrayList<Vertices> k, int[][] fs) {
         int sumA = 0;
         int sumB = 0;
         var x1 = 0;
