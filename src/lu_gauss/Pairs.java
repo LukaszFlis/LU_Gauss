@@ -18,6 +18,16 @@ public class Pairs {
         this.b = b;
     }
 
+    public int getA() {
+        return a;
+    }
+
+    public int getB() {
+        return b;
+    }
+    
+    
+
     /**
      *
      * @return

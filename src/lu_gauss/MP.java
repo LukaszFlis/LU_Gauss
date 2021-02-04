@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Wyznaczenie funkcji odwzorowania dla dwuwymiarowej MP Wyszukanie Fs i Ft
@@ -207,9 +208,15 @@ public class MP {
      * T)
      */
     public void printEP(ArrayList<EP> ep, JTable t) {
-        
         for (int i = 0; i < ep.size(); i++) {
-            
+            DefaultTableModel model = (DefaultTableModel) t.getModel();
+            int id = i + 1;
+            int vertice1 = ep.get(i).getId().getA();
+            int vertice2 = ep.get(i).getId().getB();
+            int time = ep.get(i).getT();
+            Object[] data = {id, vertice1, vertice2, time};
+            model.addRow(data);
+            t.setModel(model);
         }
     }
 

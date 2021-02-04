@@ -99,12 +99,12 @@ public class Main extends javax.swing.JFrame {
         jScrollPane5 = new JScrollPane();
         tableA2 = new JTable();
         panelTabelePomocnicze = new JPanel();
-        jPanel2 = new JPanel();
-        btnNests = new JButton();
-        btnListConnections = new JButton();
         jPanel3 = new JPanel();
         jScrollPane7 = new JScrollPane();
         tableFirstNest = new JTable();
+        btnNests = new JButton();
+        jPanel6 = new JPanel();
+        btnListConnections = new JButton();
         jScrollPane8 = new JScrollPane();
         tableOfConnections = new JTable();
         panelGraf = new JPanel();
@@ -144,12 +144,13 @@ public class Main extends javax.swing.JFrame {
         jTabbedPane1.setMinimumSize(new Dimension(0, 0));
         jTabbedPane1.setPreferredSize(new Dimension(1024, 768));
 
+        panelWejsciowe.setBackground(new Color(102, 102, 255));
         panelWejsciowe.setMaximumSize(new Dimension(1024, 768));
         panelWejsciowe.setPreferredSize(new Dimension(1024, 768));
         panelWejsciowe.setRequestFocusEnabled(false);
 
-        panelParametry.setBackground(new Color(204, 204, 255));
-        panelParametry.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2), bundle.getString("Main.panelParametry.border.title"), TitledBorder.LEFT, TitledBorder.TOP, new Font("Times New Roman", 1, 14), new Color(51, 0, 255))); // NOI18N
+        panelParametry.setBackground(new Color(51, 102, 255));
+        panelParametry.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2), bundle.getString("Main.panelParametry.border.title"), TitledBorder.LEFT, TitledBorder.TOP, new Font("Times New Roman", 0, 14), new Color(255, 255, 153))); // NOI18N
         panelParametry.setPreferredSize(new Dimension(1010, 100));
 
         jLabel1.setFont(new Font("Times New Roman", 1, 16)); // NOI18N
@@ -187,7 +188,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        panelMacierz.setBackground(new Color(204, 204, 255));
+        panelMacierz.setBackground(new Color(51, 102, 255));
         panelMacierz.setBorder(BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), bundle.getString("Main.panelMacierz.border.title"), TitledBorder.LEFT, TitledBorder.TOP, new Font("Times New Roman", 1, 14), new Color(255, 0, 102))); // NOI18N
         panelMacierz.setMinimumSize(new Dimension(0, 0));
         panelMacierz.setPreferredSize(new Dimension(1010, 650));
@@ -552,47 +553,13 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab(bundle.getString("Main.panellWeyfikacja.TabConstraints.tabTitle"), panellWeyfikacja); // NOI18N
 
+        panelTabelePomocnicze.setBackground(new Color(102, 102, 255));
         panelTabelePomocnicze.setMaximumSize(new Dimension(1024, 768));
         panelTabelePomocnicze.setPreferredSize(new Dimension(1024, 768));
 
-        jPanel2.setBackground(new Color(153, 153, 255));
-
-        btnNests.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
-        btnNests.setText(bundle.getString("Main.btnNests.text")); // NOI18N
-        btnNests.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnNestsActionPerformed(evt);
-            }
-        });
-
-        btnListConnections.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
-        btnListConnections.setText(bundle.getString("Main.btnListConnections.text")); // NOI18N
-        btnListConnections.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                btnListConnectionsActionPerformed(evt);
-            }
-        });
-
-        GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(205, 205, 205)
-                .add(btnNests)
-                .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(btnListConnections, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-                .add(169, 169, 169))
-        );
-        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .add(jPanel2Layout.createParallelGroup(GroupLayout.BASELINE)
-                    .add(btnListConnections)
-                    .add(btnNests))
-                .addContainerGap())
-        );
-
-        jPanel3.setBackground(new Color(153, 153, 255));
+        jPanel3.setBackground(new Color(51, 102, 255));
+        jPanel3.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        jPanel3.setMaximumSize(new Dimension(470, 725));
 
         tableFirstNest.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
         tableFirstNest.setModel(new DefaultTableModel(
@@ -606,7 +573,6 @@ public class Main extends javax.swing.JFrame {
         tableFirstNest.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tableFirstNest.setColumnSelectionAllowed(true);
         tableFirstNest.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        tableFirstNest.setFillsViewportHeight(true);
         tableFirstNest.setShowGrid(true);
         jScrollPane7.setViewportView(tableFirstNest);
         tableFirstNest.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -620,6 +586,46 @@ public class Main extends javax.swing.JFrame {
             tableFirstNest.getColumnModel().getColumn(6).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title6")); // NOI18N
         }
 
+        btnNests.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        btnNests.setText(bundle.getString("Main.btnNests.text")); // NOI18N
+        btnNests.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnNestsActionPerformed(evt);
+            }
+        });
+
+        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(26, 26, 26)
+                .add(jPanel3Layout.createParallelGroup(GroupLayout.LEADING, false)
+                    .add(btnNests, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jScrollPane7, GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(btnNests)
+                .addPreferredGap(LayoutStyle.RELATED, 8, Short.MAX_VALUE)
+                .add(jScrollPane7, GroupLayout.PREFERRED_SIZE, 670, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel6.setBackground(new Color(51, 102, 255));
+        jPanel6.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+        jPanel6.setMaximumSize(new Dimension(470, 32767));
+        jPanel6.setPreferredSize(new Dimension(470, 267));
+
+        btnListConnections.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        btnListConnections.setText(bundle.getString("Main.btnListConnections.text")); // NOI18N
+        btnListConnections.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnListConnectionsActionPerformed(evt);
+            }
+        });
+
         tableOfConnections.setFont(new Font("Times New Roman", 0, 10)); // NOI18N
         tableOfConnections.setModel(new DefaultTableModel(
             new Object [][] {
@@ -630,7 +636,6 @@ public class Main extends javax.swing.JFrame {
             }
         ));
         tableOfConnections.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tableOfConnections.setFillsViewportHeight(true);
         tableOfConnections.setShowGrid(true);
         jScrollPane8.setViewportView(tableOfConnections);
         if (tableOfConnections.getColumnModel().getColumnCount() > 0) {
@@ -639,35 +644,41 @@ public class Main extends javax.swing.JFrame {
             tableOfConnections.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("Main.tableFirstNest.columnModel.title2_4")); // NOI18N
         }
 
-        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .add(47, 47, 47)
-                .add(jScrollPane7)
-                .add(18, 18, 18)
-                .add(jScrollPane8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .add(47, 47, 47))
+        GroupLayout jPanel6Layout = new GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(jPanel6Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .add(36, 36, 36)
+                .add(jPanel6Layout.createParallelGroup(GroupLayout.LEADING, false)
+                    .add(btnListConnections, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jScrollPane8, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .add(jPanel3Layout.createParallelGroup(GroupLayout.TRAILING, false)
-                    .add(GroupLayout.LEADING, jScrollPane8, GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-                    .add(GroupLayout.LEADING, jScrollPane7))
-                .addContainerGap(20, Short.MAX_VALUE))
+        jPanel6Layout.setVerticalGroup(jPanel6Layout.createParallelGroup(GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(btnListConnections)
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(jScrollPane8)
+                .addContainerGap())
         );
 
         GroupLayout panelTabelePomocniczeLayout = new GroupLayout(panelTabelePomocnicze);
         panelTabelePomocnicze.setLayout(panelTabelePomocniczeLayout);
         panelTabelePomocniczeLayout.setHorizontalGroup(panelTabelePomocniczeLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(panelTabelePomocniczeLayout.createSequentialGroup()
+                .add(35, 35, 35)
+                .add(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(jPanel6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .add(35, 35, 35))
         );
         panelTabelePomocniczeLayout.setVerticalGroup(panelTabelePomocniczeLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelTabelePomocniczeLayout.createSequentialGroup()
-                .add(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .add(panelTabelePomocniczeLayout.createParallelGroup(GroupLayout.LEADING, false)
+                    .add(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel6, GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE))
+                .add(25, 25, 25))
         );
 
         jTabbedPane1.addTab(bundle.getString("Main.panelTabelePomocnicze.TabConstraints.tabTitle"), panelTabelePomocnicze); // NOI18N
@@ -703,6 +714,7 @@ public class Main extends javax.swing.JFrame {
         panelMP.setPreferredSize(new Dimension(1024, 768));
 
         jPanel1.setBackground(new Color(102, 102, 255));
+        jPanel1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 
         txtFs.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
         txtFs.setText(bundle.getString("Main.txtFs.text")); // NOI18N
@@ -813,24 +825,30 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(txtFs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .add(GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(txtFs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.RELATED)
                         .add(btnSetFs))
-                    .add(jScrollPane10, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
-                    .add(lblFs, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(20, 20, 20)
+                        .add(jPanel1Layout.createParallelGroup(GroupLayout.LEADING, false)
+                            .add(jScrollPane10)
+                            .add(lblFs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(LayoutStyle.RELATED, 65, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
-                    .add(GroupLayout.TRAILING, jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
-                        .add(jPanel1Layout.createSequentialGroup()
-                            .add(txtFt, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.RELATED)
-                            .add(btnSetFt, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-                        .add(jScrollPane11, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE))
-                    .add(GroupLayout.TRAILING, lblFt, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE))
-                .add(22, 22, 22))
+                    .add(GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .add(lblFt, GroupLayout.PREFERRED_SIZE, 425, GroupLayout.PREFERRED_SIZE)
+                        .add(44, 44, 44))
+                    .add(GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(GroupLayout.TRAILING)
+                            .add(jScrollPane11, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(txtFt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.RELATED)
+                                .add(btnSetFt)))
+                        .add(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
@@ -852,6 +870,7 @@ public class Main extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new Color(102, 102, 255));
+        jPanel4.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
         jPanel4.setMaximumSize(new Dimension(500, 32767));
 
         btnGetK.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
@@ -921,12 +940,12 @@ public class Main extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
-                .add(23, 23, 23)
+                .add(26, 26, 26)
                 .add(jPanel4Layout.createParallelGroup(GroupLayout.LEADING, false)
                     .add(jScrollPane12, GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                     .add(jLabel11, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(btnGetK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .add(26, 26, 26))
         );
         jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
@@ -940,6 +959,7 @@ public class Main extends javax.swing.JFrame {
         );
 
         jPanel5.setBackground(new Color(102, 102, 255));
+        jPanel5.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
         jPanel5.setMaximumSize(new Dimension(500, 32767));
         jPanel5.setPreferredSize(new Dimension(500, 507));
 
@@ -958,26 +978,7 @@ public class Main extends javax.swing.JFrame {
         tableMP.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
         tableMP.setModel(new DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "EP", "Vertice1", "Vertice2", "T"
@@ -1010,12 +1011,12 @@ public class Main extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
-                .add(38, 38, 38)
+                .add(33, 33, 33)
                 .add(jPanel5Layout.createParallelGroup(GroupLayout.LEADING, false)
-                    .add(jScrollPane9, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .add(jLabel10, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                    .add(btnMP, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(38, 38, 38))
+                    .add(btnMP, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jLabel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jScrollPane9, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
+                .add(33, 33, 33))
         );
         jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
@@ -1025,7 +1026,7 @@ public class Main extends javax.swing.JFrame {
                 .add(jLabel10, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.RELATED)
                 .add(jScrollPane9, GroupLayout.PREFERRED_SIZE, 347, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         GroupLayout panelMPLayout = new GroupLayout(panelMP);
@@ -1033,23 +1034,23 @@ public class Main extends javax.swing.JFrame {
         panelMPLayout.setHorizontalGroup(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelMPLayout.createSequentialGroup()
                 .add(5, 5, 5)
-                .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING, false)
-                    .add(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(panelMPLayout.createParallelGroup(GroupLayout.TRAILING)
+                    .add(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .add(panelMPLayout.createSequentialGroup()
                         .add(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.UNRELATED)
                         .add(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                .add(5, 5, 5))
+                .add(12, 12, 12))
         );
         panelMPLayout.setVerticalGroup(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
             .add(GroupLayout.TRAILING, panelMPLayout.createSequentialGroup()
-                .addContainerGap()
+                .add(32, 32, 32)
                 .add(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.UNRELATED)
                 .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING, false)
                     .add(jPanel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .add(jPanel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .add(32, 32, 32))
         );
 
         jTabbedPane1.addTab(bundle.getString("Main.panelMP.TabConstraints.tabTitle"), panelMP); // NOI18N
@@ -1120,7 +1121,7 @@ public class Main extends javax.swing.JFrame {
         mp.setFsK();
         mp.setFtK();
         mp.setEP();
-        mp.printEP(mp.getEp()); 
+        mp.printEP(mp.getEp(), tableMP); 
     }//GEN-LAST:event_btnMPActionPerformed
 
     private void btnSetFsActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnSetFsActionPerformed
@@ -1255,10 +1256,10 @@ public class Main extends javax.swing.JFrame {
     private JLabel jLabel8;
     private JLabel jLabel9;
     private JPanel jPanel1;
-    private JPanel jPanel2;
     private JPanel jPanel3;
     private JPanel jPanel4;
     private JPanel jPanel5;
+    private JPanel jPanel6;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane10;
     private JScrollPane jScrollPane11;
