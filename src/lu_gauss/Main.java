@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -125,6 +126,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane12 = new JScrollPane();
         tableW = new JTable();
         btnGetK = new JButton();
+        jLabel10 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("lu_gauss/Bundle"); // NOI18N
@@ -692,6 +694,7 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab(bundle.getString("Main.panelGraf.TabConstraints.tabTitle"), panelGraf); // NOI18N
 
+        panelMP.setBackground(new Color(102, 153, 255));
         panelMP.setMaximumSize(new Dimension(1024, 768));
         panelMP.setPreferredSize(new Dimension(1024, 768));
 
@@ -790,6 +793,11 @@ public class Main extends javax.swing.JFrame {
         txtFt.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 txtFtMouseClicked(evt);
+            }
+        });
+        txtFt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                txtFtActionPerformed(evt);
             }
         });
 
@@ -892,63 +900,73 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel10.setText(bundle.getString("Main.jLabel10.text")); // NOI18N
+
         GroupLayout panelMPLayout = new GroupLayout(panelMP);
         panelMP.setLayout(panelMPLayout);
         panelMPLayout.setHorizontalGroup(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
             .add(panelMPLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING, false)
-                    .add(GroupLayout.TRAILING, lblFt, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(btnGetK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jScrollPane12, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .add(35, 35, 35)
+                .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
+                    .add(panelMPLayout.createSequentialGroup()
+                        .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING, false)
+                            .add(GroupLayout.TRAILING, lblFs, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
+                            .add(btnGetK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jScrollPane12, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .add(jScrollPane11, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .add(lblFt, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(GroupLayout.TRAILING, jScrollPane10, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
+                            .add(panelMPLayout.createSequentialGroup()
+                                .add(txtFt, GroupLayout.PREFERRED_SIZE, 362, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.RELATED)
+                                .add(btnSetFt, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
+                            .add(panelMPLayout.createSequentialGroup()
+                                .add(36, 36, 36)
+                                .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING, false)
+                                    .add(jScrollPane9, GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                                    .add(jLabel10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(panelMPLayout.createSequentialGroup()
+                                .add(150, 150, 150)
+                                .add(btnMP, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE))))
                     .add(panelMPLayout.createSequentialGroup()
                         .add(txtFs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.RELATED)
-                        .add(btnSetFs))
-                    .add(panelMPLayout.createSequentialGroup()
-                        .add(txtFt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(btnSetFt))
-                    .add(lblFs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jScrollPane10, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .add(jScrollPane11, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
-                    .add(panelMPLayout.createSequentialGroup()
-                        .add(55, 55, 55)
-                        .add(btnMP, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE))
-                    .add(panelMPLayout.createSequentialGroup()
-                        .add(18, 18, 18)
-                        .add(jScrollPane9, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                        .add(btnSetFs)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         panelMPLayout.setVerticalGroup(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
             .add(GroupLayout.TRAILING, panelMPLayout.createSequentialGroup()
-                .addContainerGap()
+                .add(38, 38, 38)
                 .add(panelMPLayout.createParallelGroup(GroupLayout.BASELINE)
                     .add(txtFs, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-                    .add(btnSetFs)
+                    .add(btnSetFs))
+                .addPreferredGap(LayoutStyle.UNRELATED)
+                .add(panelMPLayout.createParallelGroup(GroupLayout.BASELINE)
+                    .add(lblFs, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                     .add(btnMP))
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(lblFs, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(panelMPLayout.createParallelGroup(GroupLayout.LEADING)
+                .add(18, 18, 18)
+                .add(panelMPLayout.createParallelGroup(GroupLayout.TRAILING, false)
                     .add(panelMPLayout.createSequentialGroup()
                         .add(jScrollPane10, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.UNRELATED)
                         .add(panelMPLayout.createParallelGroup(GroupLayout.BASELINE)
                             .add(txtFt, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
                             .add(btnSetFt))
-                        .addPreferredGap(LayoutStyle.RELATED)
+                        .addPreferredGap(LayoutStyle.UNRELATED)
                         .add(lblFt, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.RELATED)
+                        .addPreferredGap(LayoutStyle.UNRELATED)
                         .add(jScrollPane11, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
+                        .add(30, 30, 30)
                         .add(btnGetK)
-                        .addPreferredGap(LayoutStyle.RELATED)
-                        .add(jScrollPane12, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .add(18, 18, 18)
+                        .add(jScrollPane12, GroupLayout.PREFERRED_SIZE, 347, GroupLayout.PREFERRED_SIZE))
                     .add(panelMPLayout.createSequentialGroup()
-                        .add(jScrollPane9, GroupLayout.PREFERRED_SIZE, 528, GroupLayout.PREFERRED_SIZE)
-                        .add(0, 0, Short.MAX_VALUE)))
+                        .add(jLabel10, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jScrollPane9, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -1052,6 +1070,10 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGetKActionPerformed
 
+    private void txtFtActionPerformed(ActionEvent evt) {//GEN-FIRST:event_txtFtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFtActionPerformed
+
     /* public JTable getTableA() {
         return tableA;
     }*/
@@ -1134,6 +1156,7 @@ public class Main extends javax.swing.JFrame {
     private JButton buttonVerification;
     private JLabel czas;
     private JLabel jLabel1;
+    private JLabel jLabel10;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
