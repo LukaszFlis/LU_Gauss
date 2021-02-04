@@ -4,7 +4,7 @@ package lu_gauss;
  *
  * @author Luk
  */
-public class EP {
+public class EP implements Comparable<EP>{
     //Id EP
     private Pairs id;
     //CPU Clock
@@ -42,6 +42,15 @@ public class EP {
     @Override
     public String toString() {
         return "{[" + id + "]," + t + "}";
+    }
+
+    @Override
+    public int compareTo(EP o) {
+        int result = this.id.a- o.id.a;
+            if (result == 0) {
+                result = this.id.b - o.id.b;
+            }
+        return result;
     }
     
 }

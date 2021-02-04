@@ -2,20 +2,25 @@ package lu_gauss;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
- *Wyznaczenie funkcji odwzorowania dla dwuwymiarowej MP
- * Wyszukanie Fs i Ft spełniające warunku lokalności i przyczynowości
- * dla macierzy odwzorowania grafu D(n,l) przy n =3(wymiar grafu) i l =4;
+ * Wyznaczenie funkcji odwzorowania dla dwuwymiarowej MP Wyszukanie Fs i Ft
+ * spełniające warunku lokalności i przyczynowości dla macierzy odwzorowania
+ * grafu D(n,l) przy n =3(wymiar grafu) i l =4;
+ *
  * @author Luk
  */
 public class MP {
-    private  static Scanner sc = new Scanner(System.in);
+
+    private static Scanner sc = new Scanner(System.in);
     private int[][] fS = new int[2][3];
     private int[] ft = new int[3];
     private int[][] d = {{1, 0, 0, 1}, {0, 1, 0, 1}, {0, 0, 1, 0}};
-    
+
     private static ArrayList<Vertices> k = new ArrayList<Vertices>(20);
     //list of CPU clocks
     private static ArrayList<Integer> t = new ArrayList<>(20);
@@ -23,20 +28,21 @@ public class MP {
     private static ArrayList<Pairs> fsK = new ArrayList<>(20);
     // list of EP[coordinates, T]
     private static ArrayList<EP> ep = new ArrayList<>(20);
-    
-    
+
     /**
      * Initialize elements of the Fs array
      *
      * @param a 2d array
+     * @param t
      */
-    public static void initFs(int[][] a) {
-        var nr = 1;
+    public void initFs(int[][] a, JTextField t) {
+        String values = t.getText();
+        String[] numbers = values.split(",");
+        int it = 0;
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[0].length; j++) {
-                System.out.print("Podaj " + nr + " element macierzy Fs: ");
-                a[i][j] = sc.nextInt();
-                nr++;
+                a[i][j] = Integer.parseInt(numbers[it]);
+                it++;
             }
         }
     }
@@ -46,7 +52,7 @@ public class MP {
      *
      * @param a array
      */
-    public static void initFt(int[] a) {
+    public void initFt(int[] a) {
         System.out.println("");
         var nr = 1;
         for (int i = 0; i < a.length; i++) {
@@ -60,25 +66,17 @@ public class MP {
      * Initialize elements of the Vertice list
      *
      * @param k a list containing the coordinates of the graph's vertices
-     * @return 
      */
-    public static ArrayList initK(ArrayList<Vertices> k) { //ta metoda nie odpala się
-        System.out.println("");
-        int w1= 0;
-        int w2 =0;
+    public void getK(JTable t, ArrayList<Vertices> k) {
+        int w1 = 0;
+        int w2 = 0;
         int w3 = 0;
-        int nr = 1;
-        for (int i = 0; i < k.size(); i++) {
-            System.out.print("Podaj w1" + nr + "wierzchołka: ");
-            w1 = sc.nextInt();
-            System.out.println("Podaj w2" + nr + "wierzchołka: ");
-            w2 = sc.nextInt();
-            System.out.println("Podaj w3" + nr + "wierzchołka: ");
-            w3 = sc.nextInt();
+        for (int i = 0; i < t.getRowCount(); i++) {
+            w1 = (int) t.getValueAt(i, 1);
+            w2 = (int) t.getValueAt(i, 2);
+            w3 = (int) t.getValueAt(i, 3);
             k.add(new Vertices(w1, w2, w3));
-            nr++;
         }
-        return k;
     }
 
     /**
@@ -88,7 +86,7 @@ public class MP {
      * @param d Graph mapping array
      * @return true if the condition is met
      */
-    public static boolean isFtGood(int[] ft, int[][] d) {
+    public boolean isFtGood(int[] ft, int[][] d) {
         boolean test = true;
         int sum = 0;
         for (int i = 0; i < d[0].length; i++) {
@@ -110,7 +108,7 @@ public class MP {
      * @param d Graph mapping array
      * @return true if the condition is met
      */
-    public static boolean isFsGood(int[][] f, int[][] d) {
+    public boolean isFsGood(int[][] f, int[][] d) {
         boolean test = true;
         int sum = 0;
         for (int i = 0; i < d[0].length; i++) {
@@ -131,7 +129,20 @@ public class MP {
         }
         return test;
     }
-
+    
+    public static boolean isEpGood(){
+        Collections.sort(ep);
+        boolean test = false;
+        for (int i = 0; i < 20; i++) {
+            if (ep.get(i+1).getId().equals(ep.get(i).getId()) && ep.get(i+1).getT() != ep.get(i).getT()) {
+                test = true;
+            } else {
+                test = false;
+                break;
+            }
+        }
+        return test;
+    }
     /**
      *
      * @param ftK a list containing the CPU clocks executed in the processing
@@ -139,13 +150,13 @@ public class MP {
      * @param k a list containing the coordinates of the graph's vertices
      * @param ft temporal projection matrix
      */
-    public static void setFtK(ArrayList<Integer> ftK, ArrayList<Vertices> k, int[] ft) {
+    public void setFtK(ArrayList<Integer> ftK, ArrayList<Vertices> k, int[] ft) {
         var w1 = 0;
         var w2 = 0;
         var w3 = 0;
         var sum = 0;
 
-        for (int i = 0; i < k.size(); i++) {
+        for (int i = 0; i < 20; i++) {
             w1 = k.get(i).getW1() * ft[0];
             w2 = k.get(i).getW2() * ft[1];
             w3 = k.get(i).getW3() * ft[2];
@@ -161,7 +172,7 @@ public class MP {
      * @param k a list containing the coordinates of the graph's vertices
      * @param fs spatial mapping matrix
      */
-    public static void setFsK(ArrayList<Pairs> fsK, ArrayList<Vertices> k, int[][] fs) {
+    public void setFsK(ArrayList<Pairs> fsK, ArrayList<Vertices> k, int[][] fs) {
         int sumA = 0;
         int sumB = 0;
         var x1 = 0;
@@ -171,7 +182,7 @@ public class MP {
         var y2 = 0;
         var y3 = 0;
 
-        for (int i = 0; i < fsK.size(); i++) {
+        for (int i = 0; i < 20; i++) {
             x1 = fs[0][0] * k.get(i).getW1();
             x2 = fs[0][1] * k.get(i).getW2();
             x3 = fs[0][2] * k.get(i).getW3();
@@ -184,7 +195,7 @@ public class MP {
         }
     }
 
-    public static void setEP(ArrayList<EP> ep, ArrayList<Pairs> fsk, ArrayList<Integer> ftk) {
+    public void setEP(ArrayList<EP> ep, ArrayList<Pairs> fsk, ArrayList<Integer> ftk) {
         for (int i = 0; i < ep.size(); i++) {
             ep.add(new EP(fsk.get(i), ftk.get(i)));
         }
@@ -195,15 +206,11 @@ public class MP {
      *
      * @param a 2D array
      */
-    public static void printFs(int[][] a) {
-        System.out.println("Macierz Fs");
-        for (int i = 0; i < a.length; i++) {
-            System.out.print("|");
-            for (int j = 0; j < a[0].length; j++) {
-                System.out.print(" " + a[i][j] + " ");
+    public static void printFs(int[][] a, JTable t) {
+        for (int i = 0; i < t.getRowCount(); i++) {
+            for (int j = 0; j < t.getColumnCount(); j++) {
+                t.setValueAt(a[i][j], i, j);
             }
-            System.out.print("|");
-            System.out.println("");
         }
     }
 
@@ -221,30 +228,52 @@ public class MP {
         System.out.print("|\n");
     }
 
+    /**
+     * Print in preety format list K to console
+     *
+     * @param k ArrayList of graph vertices
+     */
     public static void printK(ArrayList<Vertices> k) {
         System.out.println("Lista wierzchołków grafu");
         for (int i = 0; i < k.size(); i++) {
             System.out.println(Arrays.toString(k.get(i).getCoordinates()));
         }
     }
-
+    
+    /**
+     * Print in preety format list ep to console
+     *
+     * @param ep ArrayList of processing elements (contains ep id and cpu clock T)
+     */
     public static void printEP(ArrayList<EP> ep) {
         System.out.println("Macierz elementów przetwarzających");
         for (int i = 0; i < ep.size(); i++) {
             System.out.println("{[" + ep.get(i).getId() + "], " + ep.get(i).getT() + "}");
         }
     }
-    
-    public int[][] getfS() {
+
+    /**
+     * Getter method for matrix Fs
+     * @return matrix Fs
+     */
+    public int[][] getFs() {
         return fS;
     }
-
+    
+    /**
+     * Getter method for matrix Ft
+     * @return matrix Ft
+     */
     public int[] getFt() {
         return ft;
     }
-
+    
+    /**
+     * Getter method for matrix D
+     * @return matrix Ss
+     */
     public int[][] getD() {
         return d;
     }
-    
+
 }

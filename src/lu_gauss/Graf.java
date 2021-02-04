@@ -88,7 +88,6 @@ public class Graf {
             Object[] data = {id, w1, w2, w3, im, ia2, ia1};
             modelA1.addRow(data);
         }
-
     }
 
     /**
@@ -124,7 +123,7 @@ public class Graf {
                     RowArray rowB = listNests.get(j);
 
                     //lewo if A.IM == B.IM && A.W3 < B.W3 && A.W1 == B.W1 && A.W2 == B.W2
-                    if (rowA.getW1() == rowB.getW1() && rowA.getW2() == rowB.getW2()&&rowA.getIm().equals(rowB.getIm())
+                    if (rowA.getW1() == rowB.getW1() && rowA.getW2() == rowB.getW2() && rowA.getIm().equals(rowB.getIm())
                             && rowA.getW3() - rowB.getW3() == -1) {
                         listOfConnections.add(new Connection(rowA.getId(), rowB.getId(), "LEFT"));
                     }//prawo if A.Ia2 = B.Ia2 && A.W2 < B.W2 && A.W1 == B.W1 A.W3 == B.W3
