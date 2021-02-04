@@ -3,7 +3,6 @@ package lu_gauss;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Scanner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -16,18 +15,17 @@ import javax.swing.JTextField;
  */
 public class MP {
 
-    private static Scanner sc = new Scanner(System.in);
     private int[][] fS = new int[2][3];
-    private int[] ft = new int[3];
+    private int[] fT = new int[3];
     private int[][] d = {{1, 0, 0, 1}, {0, 1, 0, 1}, {0, 0, 1, 0}};
 
-    private static ArrayList<Vertices> k = new ArrayList<Vertices>(20);
+    private ArrayList<Vertices> k = new ArrayList<Vertices>(20);
     //list of CPU clocks
-    private static ArrayList<Integer> t = new ArrayList<>(20);
+    private ArrayList<Integer> t = new ArrayList<>(20);
     // list of EP vertex coordinates
-    private static ArrayList<Pairs> fsK = new ArrayList<>(20);
+    private ArrayList<Pairs> fsK = new ArrayList<>(20);
     // list of EP[coordinates, T]
-    private static ArrayList<EP> ep = new ArrayList<>(20);
+    private ArrayList<EP> ep = new ArrayList<>(20);
 
     /**
      * Initialize elements of the Fs array
@@ -52,13 +50,11 @@ public class MP {
      *
      * @param a array
      */
-    public void initFt(int[] a) {
-        System.out.println("");
-        var nr = 1;
+    public void initFt(int[] a, JTextField t) {
+        String values = t.getText();
+        String[] numbers = values.split(",");
         for (int i = 0; i < a.length; i++) {
-            System.out.print("Podaj " + nr + " element macierzy Ft: ");
-            a[i] = sc.nextInt();
-            nr++;
+            a[i] = Integer.parseInt(numbers[i]);
         }
     }
 
@@ -67,7 +63,7 @@ public class MP {
      *
      * @param k a list containing the coordinates of the graph's vertices
      */
-    public void getK(JTable t, ArrayList<Vertices> k) {
+    public void setK(JTable t, ArrayList<Vertices> k) {
         int w1 = 0;
         int w2 = 0;
         int w3 = 0;
@@ -129,12 +125,12 @@ public class MP {
         }
         return test;
     }
-    
-    public static boolean isEpGood(){
+
+    public boolean isEpGood() {
         Collections.sort(ep);
         boolean test = false;
         for (int i = 0; i < 20; i++) {
-            if (ep.get(i+1).getId().equals(ep.get(i).getId()) && ep.get(i+1).getT() != ep.get(i).getT()) {
+            if (ep.get(i + 1).getId().equals(ep.get(i).getId()) && ep.get(i + 1).getT() != ep.get(i).getT()) {
                 test = true;
             } else {
                 test = false;
@@ -143,70 +139,48 @@ public class MP {
         }
         return test;
     }
-    /**
-     *
-     * @param ftK a list containing the CPU clocks executed in the processing
-     * element
-     * @param k a list containing the coordinates of the graph's vertices
-     * @param ft temporal projection matrix
-     */
-    public void setFtK(ArrayList<Integer> ftK, ArrayList<Vertices> k, int[] ft) {
-        var w1 = 0;
-        var w2 = 0;
-        var w3 = 0;
-        var sum = 0;
 
+    /**
+     * Multiply matrix fT with vertice K
+     *
+     */
+    public void setFtK() {
+        var sum = 0;
         for (int i = 0; i < 20; i++) {
-            w1 = k.get(i).getW1() * ft[0];
-            w2 = k.get(i).getW2() * ft[1];
-            w3 = k.get(i).getW3() * ft[2];
-            sum += (w1 + w2 + w3);
-            ftK.add(sum);
+            sum = fT[0] * k.get(i).getW1() + fT[1] * k.get(i).getW2() + fT[2] * k.get(i).getW3();
+            t.add(sum);
         }
     }
 
     /**
-     * Set list of EP veritces
-     *
-     * @param fsK a list containing pairs of coordinates of processing elements
-     * @param k a list containing the coordinates of the graph's vertices
-     * @param fs spatial mapping matrix
+     * Set list of MP processing element's veritces (fs * k)
      */
-    public void setFsK(ArrayList<Pairs> fsK, ArrayList<Vertices> k, int[][] fs) {
+    public void setFsK() {
         int sumA = 0;
         int sumB = 0;
-        var x1 = 0;
-        var x2 = 0;
-        var x3 = 0;
-        var y1 = 0;
-        var y2 = 0;
-        var y3 = 0;
-
         for (int i = 0; i < 20; i++) {
-            x1 = fs[0][0] * k.get(i).getW1();
-            x2 = fs[0][1] * k.get(i).getW2();
-            x3 = fs[0][2] * k.get(i).getW3();
-            sumA += (x1 + x2 + x3);
-            y1 = fs[1][0] * k.get(i).getW1();
-            y2 = fs[1][1] * k.get(i).getW2();
-            y3 = fs[1][3] * k.get(i).getW3();
-            sumB += (y1 + y2 + y3);
+            sumA = fS[0][0] * k.get(i).getW1() + fS[0][1] * k.get(i).getW2() + fS[0][2] * k.get(i).getW3();
+            sumB = (fS[1][0] * k.get(i).getW1() + fS[1][1] * k.get(i).getW2() + fS[1][2] * k.get(i).getW3());
             fsK.add(new Pairs(sumA, sumB));
         }
     }
 
-    public void setEP(ArrayList<EP> ep, ArrayList<Pairs> fsk, ArrayList<Integer> ftk) {
-        for (int i = 0; i < ep.size(); i++) {
-            ep.add(new EP(fsk.get(i), ftk.get(i)));
+    /**
+     * Set list of MP processing element's (ep id + cpu clock)
+     */
+    public void setEP() {
+        for (int i = 0; i < 20; i++) {
+            ep.add(new EP(fsK.get(i), t.get(i)));
         }
     }
 
     /**
-     * Print in preety format matrix Fs to console
+     * Print in preety format matrix Fs
      *
      * @param a 2D array
+     * @param t table to show Fs
      */
-    public static void printFs(int[][] a, JTable t) {
+    public void printFs(int[][] a, JTable t) {
         for (int i = 0; i < t.getRowCount(); i++) {
             for (int j = 0; j < t.getColumnCount(); j++) {
                 t.setValueAt(a[i][j], i, j);
@@ -215,65 +189,71 @@ public class MP {
     }
 
     /**
-     * Print in preety format matrix Ft to console
+     * Print in preety format matrix Ft
      *
      * @param a 2D array
+     * @param t table to show Ft
      */
-    public static void printFt(int[] a) {
-        System.out.println("Macierz Ft");
-        System.out.print("|");
-        for (int i = 0; i < a.length; i++) {
-            System.out.print(" " + a[i] + " ");
+    public void printFt(int[] a, JTable t) {
+        for (int i = 0; i < t.getColumnCount(); i++) {
+            t.setValueAt(a[i], 0, i);
         }
-        System.out.print("|\n");
     }
 
     /**
-     * Print in preety format list K to console
-     *
-     * @param k ArrayList of graph vertices
-     */
-    public static void printK(ArrayList<Vertices> k) {
-        System.out.println("Lista wierzchołków grafu");
-        for (int i = 0; i < k.size(); i++) {
-            System.out.println(Arrays.toString(k.get(i).getCoordinates()));
-        }
-    }
-    
-    /**
      * Print in preety format list ep to console
      *
-     * @param ep ArrayList of processing elements (contains ep id and cpu clock T)
+     * @param ep ArrayList of processing elements (contains ep id and cpu clock
+     * T)
      */
-    public static void printEP(ArrayList<EP> ep) {
-        System.out.println("Macierz elementów przetwarzających");
+    public void printEP(ArrayList<EP> ep, JTable t) {
+        
         for (int i = 0; i < ep.size(); i++) {
-            System.out.println("{[" + ep.get(i).getId() + "], " + ep.get(i).getT() + "}");
+            
         }
     }
 
     /**
      * Getter method for matrix Fs
+     *
      * @return matrix Fs
      */
     public int[][] getFs() {
         return fS;
     }
-    
+
     /**
      * Getter method for matrix Ft
+     *
      * @return matrix Ft
      */
     public int[] getFt() {
-        return ft;
+        return fT;
     }
-    
+
     /**
      * Getter method for matrix D
+     *
      * @return matrix Ss
      */
     public int[][] getD() {
         return d;
+    }
+
+    public ArrayList<Vertices> getK() {
+        return k;
+    }
+
+    public ArrayList<Integer> getT() {
+        return t;
+    }
+
+    public ArrayList<Pairs> getFsK() {
+        return fsK;
+    }
+
+    public ArrayList<EP> getEp() {
+        return ep;
     }
 
 }
